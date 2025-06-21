@@ -26,6 +26,7 @@ own_world_3d = true
 world_3d = SubResource("World3D_2rb1n")
 transparent_bg = true
 handle_input_locally = false
+screen_space_aa = 1
 size = Vector2i(1152, 648)
 render_target_update_mode = 4
 

@@ -115,50 +115,59 @@ visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+use_top_left = true
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(604, 401)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(604, 362)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="SkinContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/HBoxContainer"]
+[node name="SkinContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 
-[node name="PlayerViewportContainer" parent="CenterContainer/PanelContainer/HBoxContainer/SkinContainer" instance=ExtResource("10_ubwb3")]
+[node name="PlayerViewportContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer" instance=ExtResource("10_ubwb3")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ChangeButton" type="Button" parent="CenterContainer/PanelContainer/HBoxContainer/SkinContainer"]
+[node name="ChangeButton" type="Button" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonBottomLeft"
 text = "CHANGER"
 
-[node name="RamPanel" type="PanelContainer" parent="CenterContainer/PanelContainer/HBoxContainer"]
+[node name="RamPanel" type="PanelContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PanelCover"
 script = ExtResource("13_l68d2")
 
-[node name="RamSlider" type="VSlider" parent="CenterContainer/PanelContainer/HBoxContainer/RamPanel"]
+[node name="RamSlider" type="VSlider" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/RamPanel"]
 layout_mode = 2
 size_flags_horizontal = 4
 min_value = 2.0
 max_value = 16.0
 value = 4.0
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/HBoxContainer/RamPanel"]
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/RamPanel"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="RotatingLabel" type="Label" parent="CenterContainer/PanelContainer/HBoxContainer/RamPanel/Control"]
+[node name="RotatingLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/RamPanel/Control"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -181,15 +190,15 @@ vertical_alignment = 1
 script = ExtResource("13_vc4o2")
 args = ["2"]
 
-[node name="PlayContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/HBoxContainer"]
+[node name="PlayContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(370, 0)
 layout_mode = 2
 
-[node name="Control" type="Control" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer"]
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.1
@@ -197,19 +206,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 
-[node name="Label" type="Label" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
 text = "Pseudo :"
 
-[node name="PlayerNameLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
+[node name="PlayerNameLineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Ton pseudo"
 max_length = 16
 context_menu_enabled = false
 caret_blink = true
 
-[node name="Title" type="Label" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "SMP2I"
@@ -217,10 +227,19 @@ label_settings = SubResource("LabelSettings_7ta4k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayButton" type="Button" parent="CenterContainer/PanelContainer/HBoxContainer/PlayContainer"]
+[node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer"]
 layout_mode = 2
 theme_type_variation = &"ButtonBottomRight"
 text = "JOUER  "
+
+[node name="LoadingContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer/LoadingContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+value = 54.0
+show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -237,8 +256,8 @@ script = ExtResource("13_xwuab")
 [connection signal="file_selected" from="SkinFileDialog" to="." method="_on_skin_file_dialog_file_selected"]
 [connection signal="file_selected" from="SkinFileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="cape_selected" from="CapesSelectorWindow" to="." method="_on_capes_selector_window_cape_selected"]
-[connection signal="change_cape_request" from="CenterContainer/PanelContainer/HBoxContainer/SkinContainer/PlayerViewportContainer" to="." method="_on_player_viewport_container_change_cape_request"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/HBoxContainer/SkinContainer/ChangeButton" to="." method="_on_button_pressed"]
-[connection signal="text_changed" from="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer/PlayerNameLineEdit" to="." method="_on_player_name_line_edit_text_changed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="change_cape_request" from="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer/PlayerViewportContainer" to="." method="_on_player_viewport_container_change_cape_request"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer/ChangeButton" to="." method="_on_button_pressed"]
+[connection signal="text_changed" from="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer/PlayerNameLineEdit" to="." method="_on_player_name_line_edit_text_changed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="timeout" from="SkinDownloadTimer" to="." method="_on_skin_download_timer_timeout"]

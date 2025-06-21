@@ -13,21 +13,19 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var skin_file_dialog: FileDialog = $SkinFileDialog
 @onready var cape_selector_window: Window = $CapesSelectorWindow
 
-@onready var player_name_line_edit: LineEdit = $CenterContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer/PlayerNameLineEdit
-
-
+@onready var player_name_line_edit: LineEdit = %PlayerNameLineEdit
 
 @onready var skin_download_timer: Timer = $SkinDownloadTimer
 @onready var requests: Requests = $Requests
 
-@onready var player_viewport_container: SubViewportContainer = $CenterContainer/PanelContainer/HBoxContainer/SkinContainer/PlayerViewportContainer
+@onready var player_viewport_container: SubViewportContainer = %PlayerViewportContainer
 
 func _ready() -> void:
 	modulate.a = 0.0
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	mc_installation.install_overrides()
-
+	
 func get_playername():
 	var username = player_name_line_edit.text
 	if username == "":
