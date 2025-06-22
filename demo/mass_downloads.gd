@@ -30,6 +30,9 @@ func _process(delta: float) -> void:
 func is_empty():
 	return _queue.is_empty() and _retry_queue.is_empty()
 
+func size():
+	return _queue.size()
+
 func ask_requesters():
 	for id: int in range(requesters.size()):
 		if start_download_by(id):

@@ -21,11 +21,15 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 
 @onready var player_viewport_container: SubViewportContainer = %PlayerViewportContainer
 
+@onready var play_button: Button = %PlayButton
+@onready var progress_bar: ProgressBar = %ProgressBar
+
 func _ready() -> void:
 	modulate.a = 0.0
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	mc_installation.install_overrides()
+	progress_bar.hide()
 
 
 func _on_button_pressed() -> void:
@@ -35,6 +39,9 @@ func _on_play_button_pressed() -> void:
 	if player_name_line_edit.text.is_empty():
 		player_name_animation_player.play("Flash")
 		return
+	progress_bar.show()
+	play_button.disabled = true
+	
 	mc_installation.run(ProfileManager.get_player_name())
 
 

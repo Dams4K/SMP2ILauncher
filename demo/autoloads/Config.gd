@@ -7,11 +7,11 @@ var max_ram: int = 2:
 	set(v):
 		max_ram = v
 		save_cfg()
-var x_resolution: int = 1152:
+var x_resolution: int = 854:
 	set(v):
 		x_resolution = v
 		save_cfg()
-var y_resolution: int = 648:
+var y_resolution: int = 480:
 	set(v):
 		y_resolution = v
 		save_cfg()

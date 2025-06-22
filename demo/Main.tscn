@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b2mp5ed0vs4pf" path="res://demo/menus/player_viewport_container.tscn" id="10_ubwb3"]
 [ext_resource type="PackedScene" uid="uid://bat3n2cmf3i2b" path="res://demo/menus/capes_selector_window.tscn" id="11_dkweb"]
 [ext_resource type="FontFile" uid="uid://dqgwaq7bvtwpr" path="res://demo/assets/fonts/Comfortaa/static/Comfortaa-Bold.ttf" id="11_khfrt"]
-[ext_resource type="PackedScene" uid="uid://68rvvd6vg5fl" path="res://demo/mass_downloads.tscn" id="12_sfwgk"]
+[ext_resource type="Script" uid="uid://b8su7m0ebsh0a" path="res://demo/mass_downloads.gd" id="12_sfwgk"]
 [ext_resource type="Script" uid="uid://cb5pprveayj4s" path="res://demo/menus/ram_panel.gd" id="13_l68d2"]
 [ext_resource type="Script" uid="uid://dacbrmphtmv1y" path="res://demo/menus/custom_nodes/rotating_labek.gd" id="13_vc4o2"]
 [ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/minecraft_launcher/requests.gd" id="13_xwuab"]
@@ -131,11 +131,10 @@ size_flags_vertical = 2
 theme = ExtResource("1_hsfwl")
 script = ExtResource("1_idodt")
 
-[node name="MCInstallation" type="Node" parent="."]
-process_thread_group = 2
-process_thread_group_order = 0
-process_thread_messages = 0
+[node name="MCInstallation" type="Node" parent="." node_paths=PackedStringArray("progress_bar", "mass_downloads")]
 script = ExtResource("16_xmnrj")
+progress_bar = NodePath("../CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton/ProgressBar")
+mass_downloads = NodePath("../MassDownloads")
 java_manager = SubResource("Resource_8je2n")
 overrides_folder = "res://demo/overrides"
 tweaker = ExtResource("9_rwcyd")
@@ -144,7 +143,9 @@ fabric_loader_version = "0.15.10"
 mc_version_file = ""
 mc_version_id = "1.20.1"
 
-[node name="MassDownloads" parent="." instance=ExtResource("12_sfwgk")]
+[node name="MassDownloads" type="Node" parent="."]
+script = ExtResource("12_sfwgk")
+metadata/_custom_type_script = "uid://b8su7m0ebsh0a"
 
 [node name="SkinFileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -292,11 +293,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PlayButton" type="Button" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"ButtonBottomRight"
 text = "JOUER  "
 
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"ProgressBarRight"
+max_value = 4000.0
+show_percentage = false
+
 [node name="LoadingContainer" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer/LoadingContainer"]

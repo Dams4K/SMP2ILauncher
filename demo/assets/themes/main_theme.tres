@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=30 format=3 uid="uid://dmajl82kqvoml"]
+[gd_resource type="Theme" load_steps=31 format=3 uid="uid://dmajl82kqvoml"]
 
 [ext_resource type="FontFile" uid="uid://lh8tw5kqre88" path="res://demo/assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf" id="1_pypml"]
 [ext_resource type="StyleBox" uid="uid://bh8ujnokaxlik" path="res://demo/assets/materials/theme/panel_style.tres" id="2_lgucj"]
@@ -174,10 +174,10 @@ bg_color = Color(0.976471, 0.984314, 0.976471, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmboj"]
 bg_color = Color(0.686275, 0.686275, 0.913725, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f58nd"]
 bg_color = Color(0.372549, 1, 0.482353, 1)
@@ -186,10 +186,14 @@ border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.8, 0.8, 0.8, 0)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qrv1"]
+bg_color = Color(0.686275, 0.686275, 0.913725, 1)
+corner_radius_bottom_right = 12
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oouwd"]
 content_margin_left = 5.0
@@ -295,6 +299,8 @@ ProgressBar/constants/outline_size = 2
 ProgressBar/font_sizes/font_size = 16
 ProgressBar/styles/background = SubResource("StyleBoxFlat_jmboj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_f58nd")
+ProgressBarRight/base_type = &"ProgressBar"
+ProgressBarRight/styles/background = SubResource("StyleBoxFlat_6qrv1")
 ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_oouwd")
 VSlider/constants/center_grabber = 0
 VSlider/constants/grabber_offset = 0

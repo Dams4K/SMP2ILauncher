@@ -17,6 +17,9 @@ const ASSETS_FOLDER = "assets"
 const VERSIONS_FOLDER = "versions"
 const RUNTIME_FOLDER = "runtime"
 
+@export var progress_bar: ProgressBar
+@export var mass_downloads: MassDownloads
+
 @export var java_manager: JavaManager
 @export var launcher_name := "GoCraft"
 @export var launcher_version := "1.0.0"
@@ -154,11 +157,9 @@ func load_version_file() -> void:
 	print(version_data)
 	version_file_loaded.emit()
 
-func run(username: String):
-	#thread.start(_run.bind(username))
-	_run(username)
-
-func _run(username: String) -> void:
+func run(username: String) -> void:
+	progress_bar.value = 0
+	
 	downloader = Requests.new()
 	downloader.name = "Downloader"
 	add_child(downloader)
@@ -199,7 +200,7 @@ func _run(username: String) -> void:
 	libraries_downloaded.emit()
 	
 	var mc_assets: MCAssets = tweaker.get_assets()
-	await mc_assets.mass_download_assets(downloader, $"../MassDownloads", minecraft_folder.path_join(ASSETS_FOLDER))
+	await mc_assets.mass_download_assets(downloader, mass_downloads, minecraft_folder.path_join(ASSETS_FOLDER))
 	
 	assets_downloaded.emit()
 	
@@ -242,7 +243,10 @@ func _run(username: String) -> void:
 		mc_runner.run()
 
 func _process(delta: float) -> void:
-	if need_to_wait and tweaker.is_ready() and $"../MassDownloads".is_empty():
-		print_debug("MC is running")
-		need_to_wait = false
-		mc_runner.run()
+	if not Engine.is_editor_hint():
+		progress_bar.value = mass_downloads.size()
+		
+		if need_to_wait and tweaker.is_ready() and $"../MassDownloads".is_empty():
+			print_debug("MC is running")
+			need_to_wait = false
+			mc_runner.run()
