@@ -234,7 +234,7 @@ func _run(username: String) -> void:
 	mc_runner.tweaker = tweaker
 	mc_runner.java_path = java_exe_path
 	
-	if not tweaker.is_ready():
+	if not tweaker.is_ready() or not $"../MassDownloads".is_empty():
 		print_debug("Need to wait a little more...")
 		need_to_wait = true
 	else:
@@ -242,7 +242,7 @@ func _run(username: String) -> void:
 		mc_runner.run()
 
 func _process(delta: float) -> void:
-	if need_to_wait and tweaker.is_ready():
+	if need_to_wait and tweaker.is_ready() and $"../MassDownloads".is_empty():
 		print_debug("MC is running")
 		need_to_wait = false
 		mc_runner.run()

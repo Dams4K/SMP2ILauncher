@@ -4,6 +4,7 @@ class_name MassDownloads
 @export var nb_of_requesters := 4
 
 var requesters: Array[HTTPRequest] = []
+var current_de: Array[DownloadElement] = []
 
 var _queue: Array[DownloadElement] = []
 var _retry_queue: Array[DownloadElement] = []
@@ -13,24 +14,31 @@ func _ready() -> void:
 		var hr := HTTPRequest.new()
 		hr.use_threads = true
 		hr.accept_gzip = true
-		
+		hr.request_completed.connect(_on_request_completed.bind(i))
 		add_child(hr)
 		requesters.append(hr)
+	
+	current_de.resize(nb_of_requesters)
 
 
 func add_to_queue(url: String, path: String, sha1: String = ""):
 	_queue.append(DownloadElement.new(url, path, sha1))
+
+func _process(delta: float) -> void:
 	ask_requesters()
 
+func is_empty():
+	return _queue.is_empty() and _retry_queue.is_empty()
+
 func ask_requesters():
-	for hr: HTTPRequest in requesters:
-		if hr.get_http_client_status() == HTTPClient.STATUS_DISCONNECTED:
-			start_download_by(hr)
+	for id: int in range(requesters.size()):
+		if start_download_by(id):
 			break
 
-func start_download_by(hr: HTTPRequest):
+func start_download_by(id: int) -> bool:
+	var hr = requesters[id]
 	if hr.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
-		return
+		return false
 	
 	var de: DownloadElement = _queue.pop_front()
 	var from_retry := false
@@ -39,21 +47,25 @@ func start_download_by(hr: HTTPRequest):
 		de = _retry_queue.pop_front()
 	
 	if de == null:
-		return
+		return false
 	
 	DirAccess.make_dir_recursive_absolute(de.path.get_base_dir())
 	if FileAccess.file_exists(de.path):
 		if de.sha1 == "":
-			return
+			return true
 		elif Utils.check_sha1(de.path, de.sha1):
-			return
+			return true
 	
-	hr.request_completed.connect(_on_request_completed.bind(hr, de, from_retry))
+	
 	hr.download_file = de.path
+	current_de[id] = de
 	var err := hr.request(de.url, PackedStringArray(), HTTPClient.METHOD_GET, "")
-	printt("Try donwload", de.url, de.path)
+	#printt("Try donwload", de.url, de.path)
 	if err != OK:
-		print("Err: %s", err)
+		print("Error while requesting: %s" % err)
+		_queue.append(de)
+	
+	return true
 
 class DownloadElement extends RefCounted:
 	var url: String
@@ -67,13 +79,13 @@ class DownloadElement extends RefCounted:
 
 func _on_request_completed(
 	result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray,
-	http_request: HTTPRequest, de: DownloadElement, from_retry: bool
+	id: int
 ) -> void:
-	http_request.request_completed.disconnect(_on_request_completed)
 	if result != HTTPRequest.RESULT_SUCCESS:
-		if from_retry:
-			push_error("Error while downlaoding assets! %s" % result)
-		else:
-			_retry_queue.append(de)
+		#if from_retry:
+		push_error("Error while downlaoding assets! %s" % result)
+		#else:
+			#_retry_queue.append(de)
 	
-	start_download_by(http_request)
+	if not start_download_by(id):
+		print("Ya un pb")

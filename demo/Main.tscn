@@ -145,7 +145,6 @@ mc_version_file = ""
 mc_version_id = "1.20.1"
 
 [node name="MassDownloads" parent="." instance=ExtResource("12_sfwgk")]
-nb_of_requesters = 6
 
 [node name="SkinFileDialog" type="FileDialog" parent="."]
 title = "Open a File"

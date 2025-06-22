@@ -9,10 +9,10 @@
 content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.529412, 0.529412, 0.870588, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 corner_detail = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ico63"]
@@ -21,7 +21,7 @@ corner_detail = 5
 content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.57139, 0.57556, 0.89082, 1)
-corner_radius_bottom_left = 32
+corner_radius_bottom_left = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -29,7 +29,7 @@ anti_aliasing = false
 content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.529412, 0.529412, 0.870588, 1)
-corner_radius_bottom_left = 32
+corner_radius_bottom_left = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -37,7 +37,7 @@ anti_aliasing = false
 content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.686275, 0.686275, 0.913725, 1)
-corner_radius_bottom_left = 32
+corner_radius_bottom_left = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -48,7 +48,7 @@ content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.572549, 0.576471, 0.890196, 1)
 border_color = Color(0.717647, 0.784314, 0.745098, 1)
-corner_radius_bottom_right = 32
+corner_radius_bottom_right = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -57,7 +57,7 @@ content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.529412, 0.529412, 0.870588, 1)
 border_color = Color(0.717647, 0.784314, 0.745098, 1)
-corner_radius_bottom_right = 32
+corner_radius_bottom_right = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -66,7 +66,7 @@ content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.686275, 0.686275, 0.913725, 1)
 border_color = Color(0.717647, 0.784314, 0.745098, 1)
-corner_radius_bottom_right = 32
+corner_radius_bottom_right = 12
 corner_detail = 16
 anti_aliasing = false
 
