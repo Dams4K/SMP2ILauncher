@@ -18,7 +18,6 @@ extends Node
 ##         print(response.json())
 ##     [/codeblock]
 
-
 enum Result {
 	SUCCESS,  ## The response exists (HTTP status code is not checked). The [member code] represents the HTTP status code.
 	REQUEST_ERROR,  ## The request could not be started. The [member code] is a [enum @GlobalScope.Error]
@@ -146,4 +145,4 @@ func do_delete(url: String, data := "", headers := PackedStringArray()) -> Respo
 	return await do(url, data, headers, HTTPClient.METHOD_DELETE)
 
 func do_file(url: String, download_file: String, data := "", headers := PackedStringArray()) -> Response:
-	return await do(url, data, headers, HTTPClient.METHOD_GET, download_file)	
+	return await do(url, data, headers, HTTPClient.METHOD_GET, download_file)

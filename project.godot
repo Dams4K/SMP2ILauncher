@@ -95,5 +95,5 @@ click_cape={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.976471, 0.984314, 0.976471, 1)
+environment/defaults/default_clear_color=Color(0.971345, 0.971661, 0.992301, 1)
 anti_aliasing/quality/use_taa=true

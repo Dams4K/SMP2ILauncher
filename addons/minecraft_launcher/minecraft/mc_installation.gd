@@ -64,6 +64,8 @@ var files_to_download: int = 1000
 var mc_runner = MCRunner.new()
 var need_to_wait = false
 
+var thread := Thread.new()
+
 func _get_property_list():
 	var properties = []
 	var version_file_usage = PROPERTY_USAGE_NO_EDITOR
@@ -96,11 +98,8 @@ func _get_property_list():
 
 
 func _ready() -> void:
-	downloader = Requests.new()
-	downloader.name = "Downloader"
-	add_child(downloader)
-	
-	await load_version_file()
+	pass
+	#await load_version_file()
 
 func install_overrides():
 	if overrides_folder == null or overrides_folder.replace(" ", "") == "":
@@ -152,10 +151,19 @@ func load_version_file() -> void:
 	
 		var content = file.get_as_text()
 		version_data = JSON.parse_string(content)
-	
+	print(version_data)
 	version_file_loaded.emit()
 
 func run(username: String):
+	#thread.start(_run.bind(username))
+	_run(username)
+
+func _run(username: String) -> void:
+	downloader = Requests.new()
+	downloader.name = "Downloader"
+	add_child(downloader)
+	#await load_version_file()
+	
 	#-- DOWNLOAD JAVA
 	var java_major_version = 17 #TODO: fix this, i'm forced to set manually 8
 	var java_downloader: JavaDownloader = null
@@ -190,8 +198,9 @@ func run(username: String):
 	
 	libraries_downloaded.emit()
 	
-	var mc_assets = tweaker.get_assets()
-	await mc_assets.download_assets(downloader, minecraft_folder.path_join(ASSETS_FOLDER))
+	var mc_assets: MCAssets = tweaker.get_assets()
+	await mc_assets.mass_download_assets(downloader, $"../MassDownloads", minecraft_folder.path_join(ASSETS_FOLDER))
+	
 	assets_downloaded.emit()
 	
 	#-- Download MODS

@@ -34,6 +34,8 @@ func get_version_data(downloader: Requests, minecraft_folder: String, version_id
 	# if there is any issues, let's try to download the file again
 	print_debug("Download version file for minecraft %s on %s" % [version_id, VERSION_MANIFEST_V2_URL])
 	var versions = (await downloader.do_get(VERSION_MANIFEST_V2_URL)).json()
+	assert(versions != null, "versions is null?")
+	
 	if not versions.is_empty():
 		for v in versions["versions"]:
 			if v["id"] == version_id:

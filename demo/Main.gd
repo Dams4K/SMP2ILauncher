@@ -14,6 +14,7 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var cape_selector_window: Window = $CapesSelectorWindow
 
 @onready var player_name_line_edit: LineEdit = %PlayerNameLineEdit
+@onready var player_name_animation_player: AnimationPlayer = %PlayerNameAnimationPlayer
 
 @onready var skin_download_timer: Timer = $SkinDownloadTimer
 @onready var requests: Requests = $Requests
@@ -25,17 +26,15 @@ func _ready() -> void:
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	mc_installation.install_overrides()
-	
-func get_playername():
-	var username = player_name_line_edit.text
-	if username == "":
-		username = "ANobody"
-	return username
+
 
 func _on_button_pressed() -> void:
 	skin_file_dialog.popup_centered()
 
 func _on_play_button_pressed() -> void:
+	if player_name_line_edit.text.is_empty():
+		player_name_animation_player.play("Flash")
+		return
 	mc_installation.run(ProfileManager.get_player_name())
 
 

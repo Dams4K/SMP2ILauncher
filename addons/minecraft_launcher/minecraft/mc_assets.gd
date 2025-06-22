@@ -51,3 +51,20 @@ func download_assets(downloader: Requests, folder: String):
 		emit_signal("new_asset_downloaded", i+1, assets_count)
 	
 	print("Assets downloaded")
+
+func mass_download_assets(downloader: Requests, mass_downloads: MassDownloads, folder: String):
+	var objects = await get_assets_list(downloader, folder)
+	
+	var assets_count = len(objects.values())
+	#mass_downloads.start()
+	for i in range(assets_count):
+		var object = objects.values()[i]
+		
+		var hash: String = object.get("hash")
+		var url = hash.substr(0, 2) + "/" + hash
+		var object_path = folder.path_join("objects").path_join(url)
+		
+		#if not FileAccess.file_exists(object_path):
+			#print("Downloading assets.... %s/%s" % [i,assets_count])
+		#
+		mass_downloads.add_to_queue(RESOURCES_URL.path_join(url), object_path)
