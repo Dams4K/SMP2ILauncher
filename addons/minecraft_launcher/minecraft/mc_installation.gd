@@ -69,6 +69,8 @@ var need_to_wait = false
 
 var thread := Thread.new()
 
+@export var TOTAL_TO_DOWNLOAD := 5000
+
 func _get_property_list():
 	var properties = []
 	var version_file_usage = PROPERTY_USAGE_NO_EDITOR
@@ -184,23 +186,23 @@ func run(username: String) -> void:
 	
 	if OS.execute(java_exe_path, ["-version"]) != OK:
 		# Issue when running java
-		await java_downloader.download_java(downloader, minecraft_folder.path_join(RUNTIME_FOLDER))
+		await java_downloader.download_java(minecraft_folder.path_join(RUNTIME_FOLDER))
 		print("Java downloaded")
 	java_downloaded.emit()
-	await tweaker.setup(downloader, minecraft_folder, java_exe_path)
+	await tweaker.setup(minecraft_folder, java_exe_path)
 	
 	print("Libs")
-	await tweaker.download_libraries(downloader, minecraft_folder.path_join(LIBRARIES_FOLDER))
+	await tweaker.download_libraries(minecraft_folder.path_join(LIBRARIES_FOLDER))
 	
 	print("Natives")
-	await tweaker.download_natives(downloader, minecraft_folder.path_join(NATIVES_FOLDER))
+	await tweaker.download_natives(minecraft_folder.path_join(NATIVES_FOLDER))
 	#var artifacts = tweaker.get_libraries()
 	#print("%s artifacts" % len(artifacts))
 	
 	libraries_downloaded.emit()
 	
 	var mc_assets: MCAssets = tweaker.get_assets()
-	await mc_assets.mass_download_assets(downloader, mass_downloads, minecraft_folder.path_join(ASSETS_FOLDER))
+	await mc_assets.mass_download_assets(mass_downloads, minecraft_folder.path_join(ASSETS_FOLDER))
 	
 	assets_downloaded.emit()
 	
@@ -211,15 +213,16 @@ func run(username: String) -> void:
 	
 	#-- DOWNLOAD CLIENT
 	#var client_jar_path: String = 
-	await tweaker.download_client_jar(downloader, minecraft_folder.path_join(VERSIONS_FOLDER))
+	await tweaker.download_client_jar(minecraft_folder.path_join(VERSIONS_FOLDER))
 	client_downloaded.emit()
 	
+	#TODO: this is not working
 	var jvm_args := MCJVMArgs.new()
 	jvm_args.natives_directory = ProjectSettings.globalize_path(minecraft_folder.path_join(NATIVES_FOLDER))
 	jvm_args.launcher_name = launcher_name
 	jvm_args.launcher_version = launcher_version
 	jvm_args.xmx = "%sG" % Config.max_ram
-	#jvm_args.complementaries = tweaker.get_jvm(minecraft_folder.path_join(LIBRARIES_FOLDER))
+	jvm_args.complementaries = tweaker.get_jvm()
 
 	var game_args := MCGameArgs.new()
 	game_args.username = username
@@ -232,10 +235,12 @@ func run(username: String) -> void:
 	game_args.complementaries = tweaker.get_game_args()
 	
 	mc_runner.game_args = game_args
+	mc_runner.jvm_args = jvm_args
+	
 	mc_runner.tweaker = tweaker
 	mc_runner.java_path = java_exe_path
 	
-	if not tweaker.is_ready() or not $"../MassDownloads".is_empty():
+	if not tweaker.is_ready() or not mass_downloads.is_empty():
 		print_debug("Need to wait a little more...")
 		need_to_wait = true
 	else:
@@ -244,9 +249,9 @@ func run(username: String) -> void:
 
 func _process(delta: float) -> void:
 	if not Engine.is_editor_hint():
-		progress_bar.value = mass_downloads.size()
+		progress_bar.value = mass_downloads.downloaded
 		
-		if need_to_wait and tweaker.is_ready() and $"../MassDownloads".is_empty():
+		if need_to_wait and tweaker.is_ready() and mass_downloads.is_empty():
 			print_debug("MC is running")
 			need_to_wait = false
 			mc_runner.run()

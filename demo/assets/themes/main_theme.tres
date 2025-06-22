@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=31 format=3 uid="uid://dmajl82kqvoml"]
+[gd_resource type="Theme" load_steps=32 format=3 uid="uid://dmajl82kqvoml"]
 
 [ext_resource type="FontFile" uid="uid://lh8tw5kqre88" path="res://demo/assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf" id="1_pypml"]
 [ext_resource type="StyleBox" uid="uid://bh8ujnokaxlik" path="res://demo/assets/materials/theme/panel_style.tres" id="2_lgucj"]
@@ -38,6 +38,15 @@ content_margin_top = 12.0
 content_margin_bottom = 8.0
 bg_color = Color(0.686275, 0.686275, 0.913725, 1)
 corner_radius_bottom_left = 12
+corner_detail = 16
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4300q"]
+content_margin_top = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.529412, 0.529412, 0.870588, 1)
+border_color = Color(0.717647, 0.784314, 0.745098, 1)
+corner_radius_bottom_right = 12
 corner_detail = 16
 anti_aliasing = false
 
@@ -251,6 +260,7 @@ ButtonBottomLeft/styles/hover = SubResource("StyleBoxFlat_nbba5")
 ButtonBottomLeft/styles/normal = SubResource("StyleBoxFlat_o8g61")
 ButtonBottomLeft/styles/pressed = SubResource("StyleBoxFlat_62yy5")
 ButtonBottomRight/base_type = &"Button"
+ButtonBottomRight/styles/disabled = SubResource("StyleBoxFlat_4300q")
 ButtonBottomRight/styles/focus = SubResource("StyleBoxEmpty_cdc8x")
 ButtonBottomRight/styles/hover = SubResource("StyleBoxFlat_q4q65")
 ButtonBottomRight/styles/normal = SubResource("StyleBoxFlat_mcxus")

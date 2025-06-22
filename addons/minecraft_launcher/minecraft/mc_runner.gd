@@ -3,13 +3,14 @@ class_name MCRunner
 
 var java_path: String
 
+var jvm_args: MCJVMArgs
 var game_args: MCGameArgs
 
 var tweaker: MCTweaker
 
 func run():
 	var args: Array = []
-	args.append_array(tweaker.get_jvm())
+	args.append_array(jvm_args.to_array())
 	args.append(tweaker.get_main_class())
 	args.append_array(game_args.to_array())
 	

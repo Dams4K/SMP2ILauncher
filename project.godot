@@ -33,6 +33,7 @@ Config="*res://demo/autoloads/Config.gd"
 GlobalFunctions="*res://demo/autoloads/GlobalFunctions.gd"
 InstallCapes="*res://demo/autoloads/InstallCapes.gd"
 ProfileManager="*res://demo/autoloads/ProfileManager.tscn"
+Utils="*res://addons/minecraft_launcher/utils.gd"
 
 [debug]
 
@@ -96,4 +97,3 @@ click_cape={
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.971345, 0.971661, 0.992301, 1)
-anti_aliasing/quality/use_taa=true

@@ -1,5 +1,4 @@
 extends Node
-class_name Utils
 
 const CHUNK_SIZE = 1024
 
@@ -10,7 +9,13 @@ enum OS_TYPE {
 	UNKNOWN
 }
 
-static func check_sha1(file_path: String, sha1: String, context: int = HashingContext.HASH_SHA1):
+var downloader: Requests
+
+func _ready() -> void:
+	downloader = Requests.new()
+	add_child(downloader)
+
+func check_sha1(file_path: String, sha1: String, context: int = HashingContext.HASH_SHA1):
 	if sha1.is_empty():
 		return false
 	
@@ -27,7 +32,7 @@ static func check_sha1(file_path: String, sha1: String, context: int = HashingCo
 	var res = ctx.finish()
 	return res.hex_encode() == sha1
 
-static func download_file(request: Requests, url: String, path: String, sha1: String = "", overwrite: bool = false) -> void:
+func download_file(url: String, path: String, sha1: String = "", overwrite: bool = false) -> void:
 	DirAccess.make_dir_recursive_absolute(path.replace(path.get_file(), "")) # TODO: check err
 	# if something is missing, don't do it
 	if url == "" || path == "": return
@@ -38,7 +43,7 @@ static func download_file(request: Requests, url: String, path: String, sha1: St
 		DirAccess.remove_absolute(path)
 	
 	if not FileAccess.file_exists(path) or overwrite:
-		var response := await request.do_file(url, path)
+		var response := await downloader.do_file(url, path)
 		if response.result != Requests.Result.SUCCESS:
 			printerr("Error %s while downloading file %s from %s - code: %s" % [response.result, path, url, response.code])
 			
@@ -48,7 +53,7 @@ static func download_file(request: Requests, url: String, path: String, sha1: St
 		print("The downloaded file is corrupted. Wrong sha1")
 
 #TODO: can't unzip tar.gz files
-static func unzip_file(path: String, exclude_files: Array[String], delete_archive: bool) -> void:
+func unzip_file(path: String, exclude_files: Array[String], delete_archive: bool) -> void:
 	if path.get_extension() != "zip":
 		push_error("Can't unzip file %s" % path)
 		return
@@ -72,7 +77,7 @@ static func unzip_file(path: String, exclude_files: Array[String], delete_archiv
 	if delete_archive:
 		DirAccess.remove_absolute(path)
 
-static func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String):
+func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String):
 	if not reader.file_exists(inner_path):
 		return
 	
@@ -93,7 +98,7 @@ static func extract_file(reader: ZIPReader, inner_path: String, outer_dst: Strin
 		extracted_file.close()
 		FileAccess.set_unix_permissions(outer_path, 511) #TODO: use custom build
 
-static func get_os_type() -> OS_TYPE:
+func get_os_type() -> OS_TYPE:
 	var os_name = OS.get_name()
 	var os_type := OS_TYPE.UNKNOWN
 	if os_name in ["Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD"]: os_type = OS_TYPE.LINUX

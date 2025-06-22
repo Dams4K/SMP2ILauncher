@@ -21,9 +21,9 @@ func get_total_size():
 func get_url():
 	return data.get("url", "")
 
-func get_assets_list(downloader: Requests, folder: String) -> Dictionary:
+func get_assets_list(folder: String) -> Dictionary:
 	var file_path = folder.path_join("indexes/%s.json" % get_id())
-	await Utils.download_file(downloader, get_url(), file_path, get_sha1())
+	await Utils.download_file(get_url(), file_path, get_sha1())
 	
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file == null or file.get_error() != OK:
@@ -34,8 +34,8 @@ func get_assets_list(downloader: Requests, folder: String) -> Dictionary:
 	
 	return objects
 
-func download_assets(downloader: Requests, folder: String):
-	var objects = await get_assets_list(downloader, folder)
+func download_assets(folder: String):
+	var objects = await get_assets_list(folder)
 	
 	var assets_count = len(objects.values())
 	for i in range(assets_count):
@@ -47,16 +47,16 @@ func download_assets(downloader: Requests, folder: String):
 		
 		if not FileAccess.file_exists(object_path):
 			print("Downloading assets.... %s/%s" % [i,assets_count])
-			await Utils.download_file(downloader, RESOURCES_URL.path_join(url), object_path)
+			await Utils.download_file(RESOURCES_URL.path_join(url), object_path)
 		emit_signal("new_asset_downloaded", i+1, assets_count)
 	
 	print("Assets downloaded")
 
-func mass_download_assets(downloader: Requests, mass_downloads: MassDownloads, folder: String):
-	var objects = await get_assets_list(downloader, folder)
+func mass_download_assets(mass_downloads: MassDownloads, folder: String):
+	var objects = await get_assets_list(folder)
 	
 	var assets_count = len(objects.values())
-	#mass_downloads.start()
+	
 	for i in range(assets_count):
 		var object = objects.values()[i]
 		
@@ -64,7 +64,4 @@ func mass_download_assets(downloader: Requests, mass_downloads: MassDownloads, f
 		var url = hash.substr(0, 2) + "/" + hash
 		var object_path = folder.path_join("objects").path_join(url)
 		
-		#if not FileAccess.file_exists(object_path):
-			#print("Downloading assets.... %s/%s" % [i,assets_count])
-		#
 		mass_downloads.add_to_queue(RESOURCES_URL.path_join(url), object_path)

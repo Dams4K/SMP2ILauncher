@@ -29,18 +29,18 @@ func _init(library_data: Dictionary) -> void:
 	for rule_data in library_data.get("rules", []):
 		self.rules.append(MCRule.new(rule_data))
 
-func download_artifact(downloader: Requests, target_folder: String):
+func download_artifact(target_folder: String):
 	if not check_rules() or artifact == null:
 		return
 	
-	artifact_path = await artifact.download(downloader, target_folder)
+	artifact_path = await artifact.download(target_folder)
 	return artifact_path
 
-func download_native(downloader: Requests, target_folder: String):
+func download_native(target_folder: String):
 	if not check_rules() or native == null:
 		return
 	
-	native_path = await native.download(downloader, target_folder)
+	native_path = await native.download(target_folder)
 	return native_path
 
 func check_rules():

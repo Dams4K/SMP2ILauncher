@@ -8,15 +8,15 @@ class_name ForgeTweaker
 
 var install_forge_thread: Thread = null
 
-func setup(downloader: Requests, minecraft_folder: String, java_path: String):
-	await install_forge(downloader, minecraft_folder, java_path)
+func setup(minecraft_folder: String, java_path: String):
+	await install_forge(minecraft_folder, java_path)
 	
-	return await super.setup(downloader, minecraft_folder, java_path)
+	return await super.setup(minecraft_folder, java_path)
 
 func get_forge_version_file() -> String:
 	return "user://".path_join(MCInstallation.VERSIONS_FOLDER.path_join("%s/%s.json" % [forge_version_name, forge_version_name]))
 
-func get_complementary_version_data(downloader: Requests, version_id: StringName):
+func get_complementary_version_data(version_id: StringName):
 	if install_forge_thread != null and install_forge_thread.is_alive():
 		install_forge_thread.wait_to_finish()
 	
@@ -55,12 +55,12 @@ func get_client_jar(downloader: Requests, versions_folder: String):
 		#outside_file.store_buffer(file.get_buffer(file.get_length()))
 	return ""
 
-func get_installer(downloader: Requests, minecraft_folder: String):
+func get_installer(minecraft_folder: String):
 	var file_name: String = installer_path.get_file()
 	var path = ProjectSettings.globalize_path(minecraft_folder.path_join("installers/%s" % file_name))
 	
 	if installer_path.begins_with("http"):
-		await Utils.download_file(downloader, installer_path, path, "")
+		await Utils.download_file(installer_path, path, "")
 	elif installer_path.begins_with("res://"):
 		var folder = path.get_base_dir()
 		DirAccess.make_dir_recursive_absolute(folder)
@@ -72,12 +72,12 @@ func get_installer(downloader: Requests, minecraft_folder: String):
 		#outside_file.close()
 	return path
 
-func install_forge(downloader: Requests, minecraft_folder: String, java_path: String):
+func install_forge(minecraft_folder: String, java_path: String):
 	# Forge check if launcher_profiles.json exists to install itself..
 	var fake_profile = FileAccess.open(minecraft_folder.path_join("launcher_profiles.json"), FileAccess.WRITE)
 	fake_profile.store_string(JSON.stringify({}))
 	
-	var i_p = await get_installer(downloader, minecraft_folder)
+	var i_p = await get_installer(minecraft_folder)
 	var installer_folder = i_p.get_base_dir()
 	minecraft_folder = ProjectSettings.globalize_path(minecraft_folder)
 	

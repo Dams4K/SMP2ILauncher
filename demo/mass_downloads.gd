@@ -9,6 +9,8 @@ var current_de: Array[DownloadElement] = []
 var _queue: Array[DownloadElement] = []
 var _retry_queue: Array[DownloadElement] = []
 
+var downloaded := 0
+
 func _ready() -> void:
 	for i in range(nb_of_requesters):
 		var hr := HTTPRequest.new()
@@ -53,12 +55,9 @@ func start_download_by(id: int) -> bool:
 		return false
 	
 	DirAccess.make_dir_recursive_absolute(de.path.get_base_dir())
-	if FileAccess.file_exists(de.path):
-		if de.sha1 == "":
-			return true
-		elif Utils.check_sha1(de.path, de.sha1):
-			return true
-	
+	if file_exists(de.path, de.sha1):
+		downloaded += 1
+		return true
 	
 	hr.download_file = de.path
 	current_de[id] = de
@@ -69,6 +68,14 @@ func start_download_by(id: int) -> bool:
 		_queue.append(de)
 	
 	return true
+
+func file_exists(path: String, sha1) -> bool:
+	if FileAccess.file_exists(path):
+		if sha1 == "":
+			return true
+		elif Utils.check_sha1(path, sha1):
+			return true
+	return false
 
 class DownloadElement extends RefCounted:
 	var url: String
@@ -90,5 +97,6 @@ func _on_request_completed(
 		#else:
 			#_retry_queue.append(de)
 	
+	downloaded += 1
 	if not start_download_by(id):
 		print("Ya un pb")

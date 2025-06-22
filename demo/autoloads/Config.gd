@@ -3,7 +3,7 @@ extends Node
 var config = ConfigFile.new()
 
 
-var max_ram: int = 2:
+var max_ram: int = 4:
 	set(v):
 		max_ram = v
 		save_cfg()
@@ -16,7 +16,7 @@ var y_resolution: int = 480:
 		y_resolution = v
 		save_cfg()
 
-var username: String = "Farfelu"
+var username: String = ""
 
 func load_cfg():
 	config = ConfigFile.new()
@@ -32,7 +32,6 @@ func save_cfg():
 	config.set_value("Resolution", "y", y_resolution)
 	
 	config.save(ProjectSettings.get("Launcher/Paths/Config"))
-
 
 
 func _ready() -> void:

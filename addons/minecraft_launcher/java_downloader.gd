@@ -7,11 +7,11 @@ class_name JavaDownloader
 @export_placeholder("zip") var extension: String = "zip"
 @export var sha1: String
 
-func download_java(downloader: Requests, folder: String) -> String:
+func download_java(folder: String) -> String:
 	var path = folder.path_join("java%s.%s" % [java_major_version, extension])
 	
 	printt(url, path, sha1)
-	await Utils.download_file(downloader, url, path, sha1, false)
+	await Utils.download_file(url, path, sha1, false)
 	await Utils.unzip_file(path, [], false)
 	return path
  
