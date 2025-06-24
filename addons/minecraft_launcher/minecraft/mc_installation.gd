@@ -11,6 +11,8 @@ signal assets_downloaded
 signal client_downloaded
 signal java_downloaded
 
+signal on_run
+
 const LIBRARIES_FOLDER = "libraries"
 const NATIVES_FOLDER = "natives"
 const ASSETS_FOLDER = "assets"
@@ -254,4 +256,6 @@ func _process(delta: float) -> void:
 		if need_to_wait and tweaker.is_ready() and mass_downloads.is_empty():
 			print_debug("MC is running")
 			need_to_wait = false
+			mass_downloads.downloaded = progress_bar.max_value # we have downloaded everythings
 			mc_runner.run()
+			on_run.emit()

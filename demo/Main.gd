@@ -23,13 +23,20 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 
 @onready var play_button: Button = %PlayButton
 @onready var progress_bar: ProgressBar = %ProgressBar
+@onready var quit_timer: Timer = $QuitTimer
+
+@onready var java: Java = $Java
 
 func _ready() -> void:
 	modulate.a = 0.0
 	
+	java.jprocess(JavaExecutor.new(["-version"]))
+	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	mc_installation.install_overrides()
 	progress_bar.hide()
+	
+	mc_installation.on_run.connect(quit_timer.start)
 
 
 func _on_button_pressed() -> void:
@@ -60,3 +67,11 @@ func _on_capes_selector_window_cape_selected(path: String) -> void:
 
 func _on_skin_file_dialog_file_selected(path: String) -> void:
 	ProfileManager.set_skin(path)
+
+
+func _on_quit_timer_timeout() -> void:
+	get_tree().quit()
+
+
+func _on_java_finished(output: Array) -> void:
+	print(output)

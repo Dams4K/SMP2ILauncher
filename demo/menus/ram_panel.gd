@@ -11,7 +11,7 @@ func _ready() -> void:
 	ram_slider.value = Config.max_ram
 
 func _process(delta: float) -> void:
-	rotating_label.args[0] = ram_slider.value
+	rotating_label.args[0] = int(ram_slider.value)
 
 
 func _on_ram_slider_drag_ended(value_changed: bool) -> void:
