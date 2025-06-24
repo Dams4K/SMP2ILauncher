@@ -30,7 +30,7 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 func _ready() -> void:
 	modulate.a = 0.0
 	
-	java.jprocess(JavaExecutor.new(["-version"]))
+	java.execute(JavaExecutor.new(["-version"]))
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	mc_installation.install_overrides()

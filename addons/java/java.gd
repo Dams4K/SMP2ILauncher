@@ -42,7 +42,7 @@ func is_installed() -> bool:
 		return false
 	
 	var test_executor := JavaExecutor.new()
-	return _jprocess(test_executor) != -1
+	return _execute(test_executor) != -1
 
 func install():
 	if is_installing:
@@ -88,9 +88,10 @@ func _on_downloaded(result: int, response_code: int, headers: PackedStringArray,
 func _on_extracted():
 	is_installing = false
 	
+	print_debug("Java installed")
 	if must_execute != null:
 		# We don't want to enter a loop where is_installed return false and java is downloaded again
-		_jprocess(must_execute)
+		_execute(must_execute)
 #endregion
 
 func get_executable() -> String:
@@ -98,27 +99,14 @@ func get_executable() -> String:
 	var path := installation_folder.path_join(url.get_file().get_basename()).path_join(executable_path)
 	return ProjectSettings.globalize_path(path)
 
-#func execute(executor: JavaExecutor):
-	#if not is_installed():
-		#must_execute = executor
-		#install()
-	#else:
-		#_execute(executor)
-#
-#func _execute(executor: JavaExecutor) -> int:
-	#var executable: String = get_executable()
-	#var output = []
-	#var result = OS.execute(executable, executor.as_arguments(), output, true, executor.open_console)
-	#finished.emit(output)
-	#return result
 
-func jprocess(executor: JavaExecutor):
+func execute(executor: JavaExecutor):
 	if not is_installed():
 		must_execute = executor
 		install()
 	else:
-		_jprocess(executor)
+		_execute(executor)
 
-func _jprocess(executor: JavaExecutor) -> int:
+func _execute(executor: JavaExecutor) -> int:
 	var executable: String = get_executable()
 	return OS.create_process(executable, executor.as_arguments(), executor.open_console)
