@@ -8,12 +8,14 @@ signal finished(output: Array)
 #region Download Section
 
 @export var installation_folder: String
-@export var executable_path := "bin/java"
 
 @export_group("Download URLs")
 @export var linux_download_url: String
+@export var linux_executable_path := "bin/java"
 @export var windows_download_url: String
+@export var windows_executable_path := "bin/java.exe"
 @export var macos_download_url: String
+@export var macos_executable_path := "Contents/Home/bin/java"
 
 var http_request: HTTPRequest
 var extractor: Extractor
@@ -94,9 +96,20 @@ func _on_extracted():
 		_execute(must_execute)
 #endregion
 
+func get_local_executable_path() -> String:
+	var path: String = ""
+	match OS.get_name():
+		"Windows":
+			path = windows_executable_path
+		"macOS":
+			path = macos_executable_path
+		"Linux":
+			path = linux_executable_path
+	return path
+
 func get_executable() -> String:
 	var url := get_download_url()
-	var path := installation_folder.path_join(url.get_file().get_basename()).path_join(executable_path)
+	var path := installation_folder.path_join(url.get_file().get_basename()).path_join(get_local_executable_path())
 	return ProjectSettings.globalize_path(path)
 
 
