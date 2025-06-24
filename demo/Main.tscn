@@ -137,6 +137,7 @@ script = ExtResource("12_58xs6")
 installation_folder = "user://runtime"
 linux_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-linux-x64.tar.gz"
 windows_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-windows-x64.zip"
+windows_executable_path = "bin/javac.exe"
 macos_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-mac-x64.zip"
 metadata/_custom_type_script = "uid://diq352wlld8lq"
 
