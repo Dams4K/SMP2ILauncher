@@ -26,9 +26,12 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var quit_timer: Timer = $QuitTimer
 
 @onready var java: Java = $Java
+@onready var capes_release: LatestRelease = $CapesRelease
 
 func _ready() -> void:
 	modulate.a = 0.0
+	
+	capes_release.download_zipball("user://capes")
 	
 	java.execute(JavaExecutor.new(["-version"]))
 	

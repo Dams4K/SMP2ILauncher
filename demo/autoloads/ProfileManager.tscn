@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2jnpak886eyt"]
 
 [ext_resource type="Script" uid="uid://rtcgldmwmkqa" path="res://demo/autoloads/ProfileManager.gd" id="1_37m2s"]
-[ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/minecraft_launcher/requests.gd" id="1_bc7mn"]
+[ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/easy_requests/requests.gd" id="1_bc7mn"]
 
 [node name="ProfileManager" type="Node"]
 script = ExtResource("1_37m2s")
