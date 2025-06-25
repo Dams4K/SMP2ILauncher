@@ -20,7 +20,7 @@ func _ready() -> void:
 	update_grid()
 
 func ask_popup_centered():
-	if Time.get_unix_time_from_system() - close_time < 0.2:
+	if Time.get_unix_time_from_system() - close_time < 0.1:
 		return
 	popup_centered()
 
