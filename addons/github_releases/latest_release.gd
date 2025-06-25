@@ -3,6 +3,8 @@ class_name LatestRelease
 
 @export var owner_name: String
 @export var repository: String
+@export var force_update := false
+@export var delete_archive := true
 
 var requests: Requests
 var http_request: HTTPRequest
@@ -10,7 +12,6 @@ var extractor: Extractor
 
 var zip_file := ""
 var to_folder := ""
-var delete_archive := true
 var tag_name := ""
 
 func _ready() -> void:
@@ -36,10 +37,9 @@ func _init_extractor():
 func get_url() -> StringName:
 	return "https://api.github.com/repos/%s/%s/releases/latest" % [owner_name, repository]
 
-func download_zipball(to: String, force_update := false, delete_archive := true):
+func download_zipball(to: String):
 	self.to_folder = to
-	self.zip_file = "%s.zip" % to_folder
-	self.delete_archive = delete_archive
+	self.zip_file = to_folder.path_join("%s.zip" % repository)
 	
 	DirAccess.make_dir_recursive_absolute(to_folder)
 	

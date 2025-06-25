@@ -28,7 +28,7 @@ func is_zip(path: String) -> bool:
 	var file = FileAccess.open(path, FileAccess.READ)
 	return file.get_buffer(4) == PackedByteArray([0x50, 0x4b, 0x03, 0x04])
 
-func untar(path: String, exclude: Array[String] = []):
+func untar(path: String, exclude: Array[String] = [], strip_components: int = 1):
 	#TODO: exclude plzz
 	var output = []
 	var os_path := ProjectSettings.globalize_path(path)
@@ -36,11 +36,12 @@ func untar(path: String, exclude: Array[String] = []):
 	
 	DirAccess.make_dir_recursive_absolute(os_dir)
 	
-	OS.execute("tar", ["-xf", os_path, "-C", os_dir, "--strip-components=1"], output)
+	OS.execute("tar", ["-xf", os_path, "-C", os_dir, "--strip-components=%s" % strip_components], output)
 	_is_extracted.call_deferred()
+	
 
-
-func unzip(path: String, exclude: Array[String] = []):
+func unzip(path: String, exclude: Array[String] = [], strip_components: int = 0):
+	print(path)
 	var reader := ZIPReader.new()
 	var err = reader.open(path)
 	assert(err == OK, "Failed to open zip file")
@@ -51,16 +52,18 @@ func unzip(path: String, exclude: Array[String] = []):
 		if zip_file.get_file() in exclude:
 			continue
 		
-		extract_file(reader, zip_file, path.get_base_dir())
+		extract_file(reader, zip_file, path.get_base_dir(), strip_components)
 	
 	reader.close()
 	_is_extracted.call_deferred()
 
-func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String):
+func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String, strip_components: int = 0):
 	if not reader.file_exists(inner_path):
 		return
 	
-	var outer_path: String = outer_dst.path_join(inner_path)
+	var stripped_inner_path := inner_path.split("/", true, strip_components)[-1]
+	var outer_path: String = outer_dst.path_join(stripped_inner_path)
+	
 	var is_folder: bool = inner_path.ends_with("/")
 	if FileAccess.file_exists(outer_path) or is_folder:
 		return

@@ -8,6 +8,7 @@ const UNKOWN_SKIN = preload("res://demo/assets/textures/skins/unkown.png")
 var player_mat: StandardMaterial3D = preload("res://demo/assets/materials/player_godot.tres")
 var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tres")
 
+
 @onready var mc_installation: MCInstallation = $MCInstallation
 
 @onready var skin_file_dialog: FileDialog = $SkinFileDialog
@@ -60,11 +61,13 @@ func _on_player_name_line_edit_text_changed(new_text: String) -> void:
 
 
 func _on_player_viewport_container_change_cape_request() -> void:
-	cape_selector_window.popup_centered()
+	cape_selector_window.ask_popup_centered()
 
 
 func _on_capes_selector_window_cape_selected(path: String) -> void:
 	ProfileManager.set_cape(path)
+
+func _on_capes_selector_window_close() -> void:
 	player_viewport_container.player.can_animate = true # spagetti code go brrr
 
 

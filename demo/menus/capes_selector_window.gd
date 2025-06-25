@@ -1,6 +1,7 @@
 extends Window
 
 signal cape_selected(path: String)
+signal close
 
 @export var CAPE_ITEM: PackedScene
 const CAPES_FOLDER = "user://capes"
@@ -11,10 +12,17 @@ var internal_capes_folder = "res://demo/assets/textures/capes/"
 @onready var grid_container: GridContainer = %GridContainer
 @onready var file_dialog: FileDialog = $CapesSelectorMenu/FileDialog
 
+var close_time: float = 0.0
+
 func _ready() -> void:
 	hide()
 	
 	update_grid()
+
+func ask_popup_centered():
+	if Time.get_unix_time_from_system() - close_time < 0.2:
+		return
+	popup_centered()
 
 func update_grid():
 	var dir = DirAccess.open(CAPES_FOLDER)
@@ -46,11 +54,11 @@ func add_cape(texture_path: String):
 
 func _on_cape_selected(path: String):
 	cape_selected.emit(path)
-	hide()
+	_hide()
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		hide()
+		_hide()
 
 
 func _on_add_cape_add_cape_pressed() -> void:
@@ -61,4 +69,9 @@ func _on_file_dialog_file_selected(path: String) -> void:
 	cape_selected.emit(path)
 	DirAccess.copy_absolute(path, CAPES_FOLDER.path_join(path.get_file()))
 	update_grid()
+	_hide()
+
+func _hide():
+	close.emit()
 	hide()
+	close_time = Time.get_unix_time_from_system()
