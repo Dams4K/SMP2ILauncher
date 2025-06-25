@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://b37yxgwl3lhrf"]
+[gd_scene load_steps=34 format=4 uid="uid://b37yxgwl3lhrf"]
 
 [ext_resource type="Material" uid="uid://bdrh2jj7c4oc3" path="res://demo/assets/materials/player_godot.tres" id="1_1alkx"]
 [ext_resource type="Script" uid="uid://yhdbuxkgsn8n" path="res://demo/3d/player_godot.gd" id="1_ic7ak"]
@@ -660,9 +660,6 @@ _data = {
 &"Walk": SubResource("Animation_26i1t")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4jukg"]
-size = Vector3(1, 8.045, 5.785)
-
 [node name="player" type="Node3D"]
 script = ExtResource("1_ic7ak")
 
@@ -1085,7 +1082,7 @@ skeleton = NodePath("../..")
 
 [node name="PlayerAnimations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_4ew8p")
+&"": SubResource("AnimationLibrary_4ew8p")
 }
 autoplay = "Walk"
 speed_scale = 0.4
@@ -1096,8 +1093,3 @@ speed_scale = 0.4
 transform = Transform3D(0.707107, -0.247634, 0.662327, 0, 0.936672, 0.350207, -0.707107, -0.247634, 0.662327, 4, 1.6, 4)
 projection = 1
 size = 8.0
-
-[node name="NO" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NO"]
-shape = SubResource("BoxShape3D_4jukg")
