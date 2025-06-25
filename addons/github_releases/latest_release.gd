@@ -47,15 +47,18 @@ func download_zipball():
 	
 	var response: Dictionary = (await requests.do_get(get_url())).json()
 	
+	var zipball_url: String = response.get("zipball_url", "")
+	if zipball_url.is_empty():
+		push_error("zipball url is empty\t%s" % response)
+		return
+	
 	tag_name = response.get("tag_name", "")
+	
 	var tag_file := get_tag_file(to_folder, FileAccess.READ)
 	if not must_update(tag_file):
 		return
 	if delete_older:
 		remove_older(tag_file)
-	
-	var zipball_url: String = response.get("zipball_url", "")
-	assert(not zipball_url.is_empty(), "zipball url is empty")
 	
 	http_request.download_file = zip_file
 	http_request.request(zipball_url)

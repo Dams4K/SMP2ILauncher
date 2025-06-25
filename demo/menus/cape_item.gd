@@ -9,7 +9,7 @@ var cape_mat = preload("res://demo/assets/materials/cape.tres")
 #var selected: bool = false : set = set_selected
 
 #@export var cape_texture: Texture2D : set = set_cape_texture
-@export var cape_path: String : set = set_cape_path
+@export_file var cape_path: String : set = set_cape_path
 
 @onready var cape_mesh: MeshInstance3D = %Cape
 @onready var color_rect: ColorRect = $ColorRect
@@ -21,6 +21,8 @@ func _ready() -> void:
 	cape_mesh.set_surface_override_material(0, current_mat)
 	
 	set_cape_path(cape_path)
+	
+	_on_mouse_exited()
 
 
 func set_cape_path(value: String):
@@ -28,6 +30,7 @@ func set_cape_path(value: String):
 	if cape_mesh:
 		var i = Image.load_from_file(value)
 		var t = ImageTexture.create_from_image(i)
+		current_mat.albedo_color = Color.WHITE # for some reason, the alpha value was extremly low
 		current_mat.albedo_texture = t
 
 func _gui_input(_event: InputEvent) -> void:

@@ -13,6 +13,7 @@ const CAPES_FOLDER = "user://capes"
 var close_time: float = 0.0
 
 func _ready() -> void:
+	update_grid()
 	hide()
 
 func ask_popup_centered():
@@ -36,10 +37,12 @@ func _process(_delta: float) -> void:
 	grid_container.columns = columns
 
 func add_cape(texture_path: String):
-	var texture_name: String = texture_path.get_file().replace(".", "")
+	var texture_name: String = texture_path.get_file().replace(".", "_")
 	
-	if grid_container.get_node_or_null(texture_name) != null:
-		return
+	var existing_cape: Node = grid_container.get_node_or_null(texture_name)
+	if existing_cape != null:
+		grid_container.remove_child(existing_cape)
+		existing_cape.queue_free()
 	
 	var cape_item = CAPE_ITEM.instantiate()
 	cape_item.name = texture_name
