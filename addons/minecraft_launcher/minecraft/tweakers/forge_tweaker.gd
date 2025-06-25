@@ -6,7 +6,7 @@ class_name ForgeTweaker
 ## Available paths:[br]http://<path>.jar[br]https://<path>.jar[br]res://<path>.jar
 @export_file("*.jar") var installer_path: String
 
-var install_forge_thread: Thread = null
+var install_forge_thread: Thread
 
 func setup(minecraft_folder: String, java_path: String):
 	await install_forge(minecraft_folder, java_path)

@@ -28,11 +28,13 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 
 @onready var java: Java = $Java
 @onready var capes_release: LatestRelease = $CapesRelease
+@onready var forge: Forge = $Forge
 
 func _ready() -> void:
 	modulate.a = 0.0
 	
-	java.execute(JavaExecutor.new(["-version"]))
+	forge.install()
+	#java.execute(JavaExecutor.new(["-version"]))
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	#mc_installation.install_overrides()

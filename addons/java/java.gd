@@ -1,12 +1,7 @@
 extends Node
 class_name Java
 
-#@export var options: Dictionary[String, String] = {}
-
-signal finished(output: Array)
-
 #region Download Section
-
 @export var installation_folder: String
 
 @export_group("Download URLs")
@@ -23,6 +18,7 @@ var extractor: Extractor
 var is_installing := false
 # Variable used when we try to execute and java isn't installed
 var must_execute: JavaExecutor
+var must_callback: Callable
 
 func _ready() -> void:
 	_init_http_request()
@@ -44,7 +40,7 @@ func is_installed() -> bool:
 		return false
 	
 	var test_executor := JavaExecutor.new()
-	return _execute(test_executor) != -1
+	return _create_process(test_executor) != -1
 
 func install():
 	if is_installing:
@@ -93,8 +89,10 @@ func _on_extracted(files: Array[String]):
 	print_debug("Java installed")
 	if must_execute != null:
 		# We don't want to enter a loop where is_installed return false and java is downloaded again
-		_execute(must_execute)
+		_execute(must_execute, must_callback)
 #endregion
+
+var thread: Thread
 
 func get_local_executable_path() -> String:
 	var path: String = ""
@@ -113,13 +111,27 @@ func get_executable() -> String:
 	return ProjectSettings.globalize_path(path)
 
 
-func execute(executor: JavaExecutor):
+func execute(executor: JavaExecutor, callback: Callable = Callable()):
 	if not is_installed():
 		must_execute = executor
+		must_callback = callback
 		install()
 	else:
-		_execute(executor)
+		_execute(executor, callback)
 
-func _execute(executor: JavaExecutor) -> int:
+func _create_process(executor: JavaExecutor, callback: Callable = Callable()) -> int:
 	var executable: String = get_executable()
 	return OS.create_process(executable, executor.as_arguments(), executor.open_console)
+
+func _execute(executor: JavaExecutor, callback: Callable = Callable()):
+	var executable: String = get_executable()
+	
+	thread = Thread.new()
+	thread.start(_execute_thread.bind(executable, executor, callback))
+
+func _execute_thread(executable, executor: JavaExecutor, callback: Callable):
+	var output = []
+	
+	var exit_code: int = OS.execute(executable, executor.as_arguments(), output, false, executor.open_console)
+	
+	callback.call_deferred(exit_code, output)

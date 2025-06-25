@@ -2,7 +2,7 @@ extends RefCounted
 class_name Extractor
 
 ## files is empty when using tar
-signal extracted(files: Array)
+signal extracted(files: PackedStringArray)
 
 var thread: Thread
 
@@ -39,7 +39,7 @@ func untar(path: String, exclude: Array[String] = [], strip_components: int = 0)
 	DirAccess.make_dir_recursive_absolute(os_dir)
 	
 	OS.execute("tar", ["-xf", os_path, "-C", os_dir, "--strip-components=%s" % strip_components], output)
-	_is_extracted.call_deferred([])
+	_is_extracted.call_deferred(PackedStringArray())
 	
 
 func unzip(path: String, exclude: Array[String] = [], strip_components: int = 0):
@@ -59,7 +59,7 @@ func unzip(path: String, exclude: Array[String] = [], strip_components: int = 0)
 			extract_files.append(extracted_path)
 	
 	reader.close()
-	_is_extracted.call_deferred(extract_files)
+	_is_extracted.call_deferred(PackedStringArray(extract_files))
 
 func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String, strip_components: int = 0) -> String:
 	if not reader.file_exists(inner_path):
@@ -89,5 +89,5 @@ func extract_file(reader: ZIPReader, inner_path: String, outer_dst: String, stri
 	
 	return outer_path
 
-func _is_extracted(files: Array):
+func _is_extracted(files: PackedStringArray):
 	extracted.emit(files)
