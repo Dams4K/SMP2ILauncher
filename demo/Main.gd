@@ -32,12 +32,10 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 func _ready() -> void:
 	modulate.a = 0.0
 	
-	capes_release.download_zipball("user://capes")
-	
 	java.execute(JavaExecutor.new(["-version"]))
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
-	mc_installation.install_overrides()
+	#mc_installation.install_overrides()
 	progress_bar.hide()
 	
 	mc_installation.on_run.connect(quit_timer.start)

@@ -137,7 +137,13 @@ script = ExtResource("1_idodt")
 script = ExtResource("3_62env")
 owner_name = "SMP2I-Community"
 repository = "Capes"
-force_update = true
+to_folder = "user://capes"
+metadata/_custom_type_script = "uid://yy02e2l4h346"
+
+[node name="OverridesRelease" type="Node" parent="."]
+script = ExtResource("3_62env")
+owner_name = "SMP2I-Community"
+repository = "Overrides"
 metadata/_custom_type_script = "uid://yy02e2l4h346"
 
 [node name="Java" type="Node" parent="."]

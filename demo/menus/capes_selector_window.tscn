@@ -45,5 +45,6 @@ access = 2
 filters = PackedStringArray("*.png")
 use_native_dialog = true
 
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
 [connection signal="add_cape_pressed" from="CapesSelectorMenu/GridContainer/AddCape" to="." method="_on_add_cape_add_cape_pressed"]
 [connection signal="file_selected" from="CapesSelectorMenu/FileDialog" to="." method="_on_file_dialog_file_selected"]

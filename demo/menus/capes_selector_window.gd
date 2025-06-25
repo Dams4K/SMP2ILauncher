@@ -6,8 +6,6 @@ signal close
 @export var CAPE_ITEM: PackedScene
 const CAPES_FOLDER = "user://capes"
 
-var internal_capes_folder = "res://demo/assets/textures/capes/"
-
 @onready var capes_selector_menu: ScrollContainer = $CapesSelectorMenu
 @onready var grid_container: GridContainer = %GridContainer
 @onready var file_dialog: FileDialog = $CapesSelectorMenu/FileDialog
@@ -16,8 +14,6 @@ var close_time: float = 0.0
 
 func _ready() -> void:
 	hide()
-	
-	update_grid()
 
 func ask_popup_centered():
 	if Time.get_unix_time_from_system() - close_time < 0.1:
@@ -75,3 +71,6 @@ func _hide():
 	close.emit()
 	hide()
 	close_time = Time.get_unix_time_from_system()
+
+func _on_about_to_popup() -> void:
+	update_grid()

@@ -3,21 +3,24 @@ class_name LatestRelease
 
 @export var owner_name: String
 @export var repository: String
+@export var to_folder: String = "user://"
 @export var force_update := false
 @export var delete_archive := true
+@export var delete_older := true
 
 var requests: Requests
 var http_request: HTTPRequest
 var extractor: Extractor
 
 var zip_file := ""
-var to_folder := ""
 var tag_name := ""
 
 func _ready() -> void:
 	_init_requests()
 	_init_http_request()
 	_init_extractor()
+	
+	download_zipball()
 
 func _init_requests():
 	requests = Requests.new()
@@ -37,8 +40,7 @@ func _init_extractor():
 func get_url() -> StringName:
 	return "https://api.github.com/repos/%s/%s/releases/latest" % [owner_name, repository]
 
-func download_zipball(to: String):
-	self.to_folder = to
+func download_zipball():
 	self.zip_file = to_folder.path_join("%s.zip" % repository)
 	
 	DirAccess.make_dir_recursive_absolute(to_folder)
@@ -46,11 +48,11 @@ func download_zipball(to: String):
 	var response: Dictionary = (await requests.do_get(get_url())).json()
 	
 	tag_name = response.get("tag_name", "")
-	if not force_update:
-		var tag_file = get_tag_file(to_folder, FileAccess.READ)
-		if tag_file != null and tag_name == tag_file.get_line():
-			print_debug("Skipping. %s already installed" % repository)
-			return
+	var tag_file := get_tag_file(to_folder, FileAccess.READ)
+	if not must_update(tag_file):
+		return
+	if delete_older:
+		remove_older(tag_file)
 	
 	var zipball_url: String = response.get("zipball_url", "")
 	assert(not zipball_url.is_empty(), "zipball url is empty")
@@ -58,8 +60,24 @@ func download_zipball(to: String):
 	http_request.download_file = zip_file
 	http_request.request(zipball_url)
 
+func must_update(tag_file: FileAccess):
+	if tag_file == null:
+		return true
+	return tag_name != tag_file.get_line() or force_update
+
+func remove_older(tag_file: FileAccess):
+	if tag_file == null:
+		return
+	
+	print_debug("New release found, removing older files")
+	var old_path := tag_file.get_line()
+	while not old_path.is_empty():
+		if FileAccess.file_exists(old_path):
+			DirAccess.remove_absolute(old_path)
+		old_path = tag_file.get_line()
+
 func get_tag_path(dir: String) -> String:
-	return dir.path_join(".repo_tag_name")
+	return dir.path_join(".%s_repo_tag_name" % repository)
 
 func get_tag_file(dir: String, flag: FileAccess.ModeFlags) -> FileAccess:
 	return FileAccess.open(get_tag_path(dir), flag)
@@ -67,11 +85,13 @@ func get_tag_file(dir: String, flag: FileAccess.ModeFlags) -> FileAccess:
 func _on_downloaded(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
 	assert(result == HTTPRequest.RESULT_SUCCESS, "Request failed: %s" % result)
 	
-	extractor.extract(zip_file)
+	extractor.extract(zip_file, [], true, 1)
 
-func _on_extracted():
+func _on_extracted(files: Array[String]):
 	var tag_file := get_tag_file(to_folder, FileAccess.WRITE)
 	tag_file.store_line(tag_name)
+	for file in files:
+		tag_file.store_line(file)
 	
 	print("Latest release of %s is now installed at %s" % [repository, to_folder])
 	if delete_archive:

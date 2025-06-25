@@ -87,7 +87,7 @@ func _on_downloaded(result: int, response_code: int, headers: PackedStringArray,
 	
 	extractor.extract(get_download_file())
 
-func _on_extracted():
+func _on_extracted(files: Array[String]):
 	is_installing = false
 	
 	print_debug("Java installed")
