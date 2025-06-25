@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://wmust7l67dnq" path="res://demo/menus/add_cape.tscn" id="4_ety5s"]
 
 [node name="CapesSelectorWindow" type="Window"]
-title = "Selection ta cape"
+title = "Choisis ta cape"
 position = Vector2i(0, 36)
 size = Vector2i(960, 540)
 script = ExtResource("1_qtab3")
