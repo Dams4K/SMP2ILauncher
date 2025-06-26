@@ -1,31 +1,32 @@
-[gd_scene load_steps=35 format=3 uid="uid://bnvlws7lnrdw"]
+[gd_scene load_steps=36 format=3 uid="uid://bnvlws7lnrdw"]
 
-[ext_resource type="Theme" uid="uid://dmajl82kqvoml" path="res://demo/assets/themes/main_theme.tres" id="1_hsfwl"]
-[ext_resource type="Script" uid="uid://bv83qgwbfu3rg" path="res://demo/Main.gd" id="1_idodt"]
-[ext_resource type="Script" uid="uid://yy02e2l4h346" path="res://addons/github_releases/latest_release.gd" id="3_62env"]
-[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="5_mobmp"]
-[ext_resource type="Resource" uid="uid://1kr331jmpwv6" path="res://demo/assets/profiles/forge_1201.tres" id="9_rwcyd"]
-[ext_resource type="Script" uid="uid://dlkjcqdi7ge4o" path="res://addons/minecraft_launcher/minecraft/mc_mod.gd" id="10_anq1q"]
-[ext_resource type="Script" uid="uid://rjxvf6e767oo" path="res://addons/minecraft_launcher/minecraft/curseforge_mod.gd" id="10_hk57a"]
-[ext_resource type="PackedScene" uid="uid://b2mp5ed0vs4pf" path="res://demo/menus/player_viewport_container.tscn" id="10_ubwb3"]
-[ext_resource type="PackedScene" uid="uid://bat3n2cmf3i2b" path="res://demo/menus/capes_selector_window.tscn" id="11_dkweb"]
-[ext_resource type="FontFile" uid="uid://dqgwaq7bvtwpr" path="res://demo/assets/fonts/Comfortaa/static/Comfortaa-Bold.ttf" id="11_khfrt"]
-[ext_resource type="Script" uid="uid://diq352wlld8lq" path="res://addons/java/java.gd" id="12_58xs6"]
-[ext_resource type="Script" uid="uid://b8su7m0ebsh0a" path="res://demo/mass_downloads.gd" id="12_sfwgk"]
-[ext_resource type="Script" uid="uid://cb5pprveayj4s" path="res://demo/menus/ram_panel.gd" id="13_l68d2"]
-[ext_resource type="Script" uid="uid://dacbrmphtmv1y" path="res://demo/menus/custom_nodes/rotating_labek.gd" id="13_vc4o2"]
-[ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/easy_requests/requests.gd" id="13_xwuab"]
-[ext_resource type="Script" uid="uid://bjk5g4gwdhnmi" path="res://addons/minecraft_launcher/java_manager.gd" id="16_kkxe5"]
-[ext_resource type="Resource" uid="uid://bpc5u6s0v5q1x" path="res://demo/assets/java_downloaders/linux_java_17.tres" id="16_ret3p"]
-[ext_resource type="Script" uid="uid://d3t30n2gskt00" path="res://addons/minecraft_launcher/minecraft/mc_installation.gd" id="16_xmnrj"]
-[ext_resource type="Texture2D" uid="uid://bccwy8opb2gkd" path="res://demo/assets/textures/NodeWarning.svg" id="17_570fy"]
-[ext_resource type="Resource" uid="uid://dgyxcs8ol60sx" path="res://demo/assets/java_downloaders/linux_java_8.tres" id="17_d17bv"]
-[ext_resource type="Script" uid="uid://2woelyueautw" path="res://demo/player_name_line_edit.gd" id="17_xi3f0"]
-[ext_resource type="Resource" uid="uid://w8oe1ck4lhf0" path="res://demo/assets/java_downloaders/windows_java_17.tres" id="19_8vens"]
-[ext_resource type="Script" uid="uid://2i2tiwcurk8j" path="res://addons/minecraft_launcher/java_downloader.gd" id="20_0pa4w"]
+[ext_resource type="Theme" uid="uid://dmajl82kqvoml" path="res://demo/assets/themes/main_theme.tres" id="1_3r4ql"]
+[ext_resource type="Script" uid="uid://bv83qgwbfu3rg" path="res://demo/main.gd" id="2_3qh5v"]
+[ext_resource type="Script" uid="uid://j5q1ucwhu0ls" path="res://addons/curseforge/curseforge_mod.gd" id="3_0s2t6"]
+[ext_resource type="Script" uid="uid://yy02e2l4h346" path="res://addons/github_releases/latest_release.gd" id="4_vb7w5"]
+[ext_resource type="Script" uid="uid://diq352wlld8lq" path="res://addons/java/java.gd" id="5_amid1"]
+[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="6_5royu"]
+[ext_resource type="Script" uid="uid://d3t30n2gskt00" path="res://addons/minecraft_launcher/minecraft/mc_installation.gd" id="7_sy6vv"]
+[ext_resource type="Script" uid="uid://2i2tiwcurk8j" path="res://addons/minecraft_launcher/java_downloader.gd" id="8_02f81"]
+[ext_resource type="Resource" uid="uid://bpc5u6s0v5q1x" path="res://demo/assets/java_downloaders/linux_java_17.tres" id="9_yq6dc"]
+[ext_resource type="Resource" uid="uid://dgyxcs8ol60sx" path="res://demo/assets/java_downloaders/linux_java_8.tres" id="10_rhuok"]
+[ext_resource type="Script" uid="uid://bjk5g4gwdhnmi" path="res://addons/minecraft_launcher/java_manager.gd" id="11_d6f2q"]
+[ext_resource type="Resource" uid="uid://w8oe1ck4lhf0" path="res://demo/assets/java_downloaders/windows_java_17.tres" id="12_6vemr"]
+[ext_resource type="Resource" uid="uid://1kr331jmpwv6" path="res://demo/assets/profiles/forge_1201.tres" id="13_xec5l"]
+[ext_resource type="Script" uid="uid://dlkjcqdi7ge4o" path="res://addons/minecraft_launcher/minecraft/mc_mod.gd" id="14_tk5yn"]
+[ext_resource type="Script" uid="uid://rjxvf6e767oo" path="res://addons/minecraft_launcher/minecraft/curseforge_mod.gd" id="15_es1df"]
+[ext_resource type="Script" uid="uid://b8su7m0ebsh0a" path="res://demo/mass_downloads.gd" id="16_nwv5g"]
+[ext_resource type="PackedScene" uid="uid://bat3n2cmf3i2b" path="res://demo/menus/capes_selector_window.tscn" id="17_cidaf"]
+[ext_resource type="PackedScene" uid="uid://b2mp5ed0vs4pf" path="res://demo/menus/player_viewport_container.tscn" id="18_x1xes"]
+[ext_resource type="Script" uid="uid://cb5pprveayj4s" path="res://demo/menus/ram_panel.gd" id="19_36jaf"]
+[ext_resource type="FontFile" uid="uid://dqgwaq7bvtwpr" path="res://demo/assets/fonts/Comfortaa/static/Comfortaa-Bold.ttf" id="20_oxxlq"]
+[ext_resource type="Script" uid="uid://dacbrmphtmv1y" path="res://demo/menus/custom_nodes/rotating_labek.gd" id="21_mjx5a"]
+[ext_resource type="Script" uid="uid://2woelyueautw" path="res://demo/player_name_line_edit.gd" id="22_kkmuq"]
+[ext_resource type="Texture2D" uid="uid://bccwy8opb2gkd" path="res://demo/assets/textures/NodeWarning.svg" id="23_mrq1a"]
+[ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/easy_requests/requests.gd" id="24_cw4ra"]
 
 [sub_resource type="Resource" id="Resource_2ce40"]
-script = ExtResource("20_0pa4w")
+script = ExtResource("8_02f81")
 java_major_version = "8"
 url = "https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_windows-x64_bin.zip"
 exe_path = "jdk-17.0.2/bin/javaw.exe"
@@ -33,17 +34,17 @@ extension = "zip"
 sha1 = ""
 
 [sub_resource type="Resource" id="Resource_8je2n"]
-script = ExtResource("16_kkxe5")
-linux_javas = Array[ExtResource("20_0pa4w")]([ExtResource("16_ret3p"), ExtResource("17_d17bv")])
-windows_javas = Array[ExtResource("20_0pa4w")]([ExtResource("19_8vens"), SubResource("Resource_2ce40")])
+script = ExtResource("11_d6f2q")
+linux_javas = Array[ExtResource("8_02f81")]([ExtResource("9_yq6dc"), ExtResource("10_rhuok")])
+windows_javas = Array[ExtResource("8_02f81")]([ExtResource("12_6vemr"), SubResource("Resource_2ce40")])
 
 [sub_resource type="Resource" id="Resource_wyww5"]
-script = ExtResource("10_hk57a")
+script = ExtResource("15_es1df")
 modid = 286924
 fileid = 4973871
 
 [sub_resource type="LabelSettings" id="LabelSettings_cpkci"]
-font = ExtResource("11_khfrt")
+font = ExtResource("20_oxxlq")
 font_size = 24
 
 [sub_resource type="Animation" id="Animation_xi3f0"]
@@ -84,7 +85,7 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ta4k"]
-font = ExtResource("11_khfrt")
+font = ExtResource("20_oxxlq")
 font_size = 96
 
 [sub_resource type="Animation" id="Animation_4juw5"]
@@ -131,24 +132,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 2
-theme = ExtResource("1_hsfwl")
-script = ExtResource("1_idodt")
+theme = ExtResource("1_3r4ql")
+script = ExtResource("2_3qh5v")
+
+[node name="CurseforgeMod" type="Node" parent="."]
+script = ExtResource("3_0s2t6")
+mod_id = 1285889
+file_id = 6667637
+installation_folder = "user://mods"
+metadata/_custom_type_script = "uid://j5q1ucwhu0ls"
 
 [node name="CapesRelease" type="Node" parent="."]
-script = ExtResource("3_62env")
+script = ExtResource("4_vb7w5")
 owner_name = "SMP2I-Community"
 repository = "Capes"
 to_folder = "user://capes"
 metadata/_custom_type_script = "uid://yy02e2l4h346"
 
 [node name="OverridesRelease" type="Node" parent="."]
-script = ExtResource("3_62env")
+script = ExtResource("4_vb7w5")
 owner_name = "SMP2I-Community"
 repository = "Overrides"
 metadata/_custom_type_script = "uid://yy02e2l4h346"
 
 [node name="Java" type="Node" parent="."]
-script = ExtResource("12_58xs6")
+script = ExtResource("5_amid1")
 installation_folder = "user://runtime"
 linux_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-linux-x64.tar.gz"
 windows_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-windows-x64.zip"
@@ -157,25 +165,25 @@ macos_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk
 metadata/_custom_type_script = "uid://diq352wlld8lq"
 
 [node name="Forge" type="Node" parent="." node_paths=PackedStringArray("java")]
-script = ExtResource("5_mobmp")
+script = ExtResource("6_5royu")
 java = NodePath("../Java")
 installer = "res://demo/assets/forge/forge-1.20.1-47.2.32-installer.jar"
 metadata/_custom_type_script = "uid://cnt177xcrab2k"
 
 [node name="MCInstallation" type="Node" parent="." node_paths=PackedStringArray("progress_bar", "mass_downloads")]
-script = ExtResource("16_xmnrj")
+script = ExtResource("7_sy6vv")
 progress_bar = NodePath("../CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton/ProgressBar")
 mass_downloads = NodePath("../MassDownloads")
 java_manager = SubResource("Resource_8je2n")
 overrides_folder = "res://demo/overrides"
-tweaker = ExtResource("9_rwcyd")
-mods = Array[ExtResource("10_anq1q")]([SubResource("Resource_wyww5")])
+tweaker = ExtResource("13_xec5l")
+mods = Array[ExtResource("14_tk5yn")]([SubResource("Resource_wyww5")])
 fabric_loader_version = "0.15.10"
 mc_version_file = ""
 mc_version_id = "1.20.1"
 
 [node name="MassDownloads" type="Node" parent="."]
-script = ExtResource("12_sfwgk")
+script = ExtResource("16_nwv5g")
 metadata/_custom_type_script = "uid://b8su7m0ebsh0a"
 
 [node name="SkinFileDialog" type="FileDialog" parent="."]
@@ -187,7 +195,7 @@ access = 2
 filters = PackedStringArray("*.png")
 use_native_dialog = true
 
-[node name="CapesSelectorWindow" parent="." instance=ExtResource("11_dkweb")]
+[node name="CapesSelectorWindow" parent="." instance=ExtResource("17_cidaf")]
 visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -218,7 +226,7 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 
-[node name="PlayerViewportContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer" instance=ExtResource("10_ubwb3")]
+[node name="PlayerViewportContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer" instance=ExtResource("18_x1xes")]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -231,7 +239,7 @@ text = "CHANGER"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"PanelCover"
-script = ExtResource("13_l68d2")
+script = ExtResource("19_36jaf")
 
 [node name="RamSlider" type="VSlider" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/RamPanel"]
 layout_mode = 2
@@ -264,7 +272,7 @@ text = "RAM: %sG"
 label_settings = SubResource("LabelSettings_cpkci")
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("13_vc4o2")
+script = ExtResource("21_mjx5a")
 args = ["2"]
 
 [node name="PlayContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer"]
@@ -295,7 +303,7 @@ placeholder_text = "Ton pseudo"
 max_length = 16
 context_menu_enabled = false
 caret_blink = true
-script = ExtResource("17_xi3f0")
+script = ExtResource("22_kkmuq")
 
 [node name="WarningTexture" type="TextureRect" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer/PlayerNameLineEdit"]
 layout_mode = 1
@@ -306,7 +314,7 @@ anchor_bottom = 1.0
 offset_right = -6.0
 grow_horizontal = 0
 grow_vertical = 2
-texture = ExtResource("17_570fy")
+texture = ExtResource("23_mrq1a")
 stretch_mode = 3
 
 [node name="PlayerNameAnimationPlayer" type="AnimationPlayer" parent="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/Control/VBoxContainer/PlayerNameLineEdit"]
@@ -366,7 +374,7 @@ one_shot = true
 process_thread_group = 2
 process_thread_group_order = 0
 process_thread_messages = 0
-script = ExtResource("13_xwuab")
+script = ExtResource("24_cw4ra")
 
 [node name="QuitTimer" type="Timer" parent="."]
 wait_time = 5.0

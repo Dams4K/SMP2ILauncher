@@ -4,7 +4,7 @@ var curseforge_api_key: String
 
 func _ready() -> void:
 	var file = FileAccess.open(ProjectSettings.get("Launcher/Paths/CurseForgeApiKeyPath"), FileAccess.READ)
-	curseforge_api_key = file.get_as_text().split("\n")[0]
+	#curseforge_api_key = file.get_as_text().split("\n")[0]
 
 func _input(_event):
 	if Input.is_action_just_pressed("fullscreen_shortcut"):

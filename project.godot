@@ -18,7 +18,7 @@ Paths/CurseForgeApiKeyPath="res://curseforge_api.key"
 
 config/name="SMP2I Launcher"
 config/version="1.0.0"
-run/main_scene="res://demo/Main.tscn"
+run/main_scene="res://demo/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="smp2i"
 config/features=PackedStringArray("4.4")
@@ -97,3 +97,4 @@ click_cape={
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.971345, 0.971661, 0.992301, 1)
+anti_aliasing/quality/use_taa=true

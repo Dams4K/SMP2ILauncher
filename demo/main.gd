@@ -1,5 +1,7 @@
 extends Control
 
+const CURSEFORGE_KEY_PATH := "res://addons/curseforge/curseforge_api.key"
+
 const MINECRAFT_UUID = "https://api.mojang.com/users/profiles/minecraft/%s"
 const MINECRAFT_PROFILE = "https://sessionserver.mojang.com/session/minecraft/profile/%s"
 
@@ -31,8 +33,10 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var forge: Forge = $Forge
 
 func _ready() -> void:
-	modulate.a = 0.0
+	_init_curseforge_api()
 	
+	modulate.a = 0.0
+	$CurseforgeMod.download()
 	forge.install()
 	#java.execute(JavaExecutor.new(["-version"]))
 	
@@ -42,6 +46,9 @@ func _ready() -> void:
 	
 	mc_installation.on_run.connect(quit_timer.start)
 
+func _init_curseforge_api():
+	var file = FileAccess.open(CURSEFORGE_KEY_PATH, FileAccess.READ)
+	CurseforgeAPI.init(file.get_line())
 
 func _on_button_pressed() -> void:
 	skin_file_dialog.popup_centered()
