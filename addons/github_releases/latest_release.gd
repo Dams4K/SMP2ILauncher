@@ -1,6 +1,8 @@
 extends Node
 class_name LatestRelease
 
+signal installed(udpated: bool)
+
 @export var owner_name: String
 @export var repository: String
 @export var to_folder: String = "user://"
@@ -19,8 +21,6 @@ func _ready() -> void:
 	_init_requests()
 	_init_http_request()
 	_init_extractor()
-	
-	download_zipball()
 
 func _init_requests():
 	requests = Requests.new()
@@ -40,6 +40,9 @@ func _init_extractor():
 func get_url() -> StringName:
 	return "https://api.github.com/repos/%s/%s/releases/latest" % [owner_name, repository]
 
+func install():
+	download_zipball()
+
 func download_zipball():
 	self.zip_file = to_folder.path_join("%s.zip" % repository)
 	
@@ -56,6 +59,7 @@ func download_zipball():
 	
 	var tag_file := get_tag_file(to_folder, FileAccess.READ)
 	if not must_update(tag_file):
+		installed.emit(false)
 		return
 	if delete_older:
 		remove_older(tag_file)
@@ -99,3 +103,5 @@ func _on_extracted(files: Array[String]):
 	print("Latest release of %s is now installed at %s" % [repository, to_folder])
 	if delete_archive:
 		DirAccess.remove_absolute(zip_file)
+	
+	installed.emit(true)

@@ -1088,6 +1088,7 @@ autoplay = "Walk"
 speed_scale = 0.4
 
 [node name="Anchor" type="Node3D" parent="."]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Anchor"]
 transform = Transform3D(0.707107, -0.247634, 0.662327, 0, 0.936672, 0.350207, -0.707107, -0.247634, 0.662327, 4, 1.6, 4)

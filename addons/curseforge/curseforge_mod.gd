@@ -1,6 +1,8 @@
 extends Node
 class_name CurseforgeMod
 
+signal installed
+
 const GENERATED_URL: String = "https://mediafilez.forgecdn.net/files/%s/%s/%s"
 
 @export var mod_id: int
@@ -17,13 +19,20 @@ func download():
 	DirAccess.make_dir_recursive_absolute(installation_folder)
 	
 	var download_info := await _get_download_url()
-	assert(download_info, "Failed to get download's info")
+	if download_info == null:
+		push_error("Failed to get download's info for %s" % mod_id)
+		return
 	
 	await requester.do_file(download_info.url, installation_folder.path_join(download_info.file_name))
+	
+	installed.emit()
 
 func _get_download_url() -> DownloadInfo:
 	var response = (await requester.do_get(CurseforgeAPI.get_file_url(mod_id, file_id)))
-	assert(response.json(), "Response is null: code %s" % response.code)
+	if response.json() == null:
+		push_error("Failed to download mod infos. Code: %s. Result: %s" % [response.code, response.result])
+		return
+	#assert(response.json(), "Response is null: code %s" % response.code)
 	
 	var data = response.json().get("data", {})
 	

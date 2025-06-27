@@ -1,11 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://bnvlws7lnrdw"]
+[gd_scene load_steps=33 format=3 uid="uid://bnvlws7lnrdw"]
 
 [ext_resource type="Theme" uid="uid://dmajl82kqvoml" path="res://demo/assets/themes/main_theme.tres" id="1_3r4ql"]
 [ext_resource type="Script" uid="uid://bv83qgwbfu3rg" path="res://demo/main.gd" id="2_3qh5v"]
-[ext_resource type="Script" uid="uid://j5q1ucwhu0ls" path="res://addons/curseforge/curseforge_mod.gd" id="3_0s2t6"]
-[ext_resource type="Script" uid="uid://yy02e2l4h346" path="res://addons/github_releases/latest_release.gd" id="4_vb7w5"]
-[ext_resource type="Script" uid="uid://diq352wlld8lq" path="res://addons/java/java.gd" id="5_amid1"]
-[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="6_5royu"]
+[ext_resource type="PackedScene" uid="uid://c77lr42fyc6sd" path="res://demo/minecraft_installation.tscn" id="3_27lkm"]
 [ext_resource type="Script" uid="uid://d3t30n2gskt00" path="res://addons/minecraft_launcher/minecraft/mc_installation.gd" id="7_sy6vv"]
 [ext_resource type="Script" uid="uid://2i2tiwcurk8j" path="res://addons/minecraft_launcher/java_downloader.gd" id="8_02f81"]
 [ext_resource type="Resource" uid="uid://bpc5u6s0v5q1x" path="res://demo/assets/java_downloaders/linux_java_17.tres" id="9_yq6dc"]
@@ -100,7 +97,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_exirq"]
@@ -135,40 +132,7 @@ size_flags_vertical = 2
 theme = ExtResource("1_3r4ql")
 script = ExtResource("2_3qh5v")
 
-[node name="CurseforgeMod" type="Node" parent="."]
-script = ExtResource("3_0s2t6")
-mod_id = 1285889
-file_id = 6667637
-installation_folder = "user://mods"
-metadata/_custom_type_script = "uid://j5q1ucwhu0ls"
-
-[node name="CapesRelease" type="Node" parent="."]
-script = ExtResource("4_vb7w5")
-owner_name = "SMP2I-Community"
-repository = "Capes"
-to_folder = "user://capes"
-metadata/_custom_type_script = "uid://yy02e2l4h346"
-
-[node name="OverridesRelease" type="Node" parent="."]
-script = ExtResource("4_vb7w5")
-owner_name = "SMP2I-Community"
-repository = "Overrides"
-metadata/_custom_type_script = "uid://yy02e2l4h346"
-
-[node name="Java" type="Node" parent="."]
-script = ExtResource("5_amid1")
-installation_folder = "user://runtime"
-linux_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-linux-x64.tar.gz"
-windows_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-windows-x64.zip"
-windows_executable_path = "bin/javaw.exe"
-macos_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-mac-x64.zip"
-metadata/_custom_type_script = "uid://diq352wlld8lq"
-
-[node name="Forge" type="Node" parent="." node_paths=PackedStringArray("java")]
-script = ExtResource("6_5royu")
-java = NodePath("../Java")
-installer = "res://demo/assets/forge/forge-1.20.1-47.2.32-installer.jar"
-metadata/_custom_type_script = "uid://cnt177xcrab2k"
+[node name="MinecraftInstallation" parent="." instance=ExtResource("3_27lkm")]
 
 [node name="MCInstallation" type="Node" parent="." node_paths=PackedStringArray("progress_bar", "mass_downloads")]
 script = ExtResource("7_sy6vv")
@@ -362,6 +326,7 @@ value = 54.0
 show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
 libraries = {
 &"": SubResource("AnimationLibrary_p3jug")
 }
@@ -379,8 +344,8 @@ script = ExtResource("24_cw4ra")
 [node name="QuitTimer" type="Timer" parent="."]
 wait_time = 5.0
 
-[connection signal="file_selected" from="SkinFileDialog" to="." method="_on_skin_file_dialog_file_selected"]
 [connection signal="file_selected" from="SkinFileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="SkinFileDialog" to="." method="_on_skin_file_dialog_file_selected"]
 [connection signal="cape_selected" from="CapesSelectorWindow" to="." method="_on_capes_selector_window_cape_selected"]
 [connection signal="close" from="CapesSelectorWindow" to="." method="_on_capes_selector_window_close"]
 [connection signal="change_cape_request" from="CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/SkinContainer/PlayerViewportContainer" to="." method="_on_player_viewport_container_change_cape_request"]

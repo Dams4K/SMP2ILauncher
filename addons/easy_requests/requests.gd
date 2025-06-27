@@ -24,7 +24,6 @@ enum Result {
 	RESULT_ERROR  ## The request failed. The [member code] is a [enum HTTPRequest.Result]
 }
 
-
 ## Response object returned by [Requests].
 class Response extends RefCounted:
 	

@@ -28,23 +28,17 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var quit_timer: Timer = $QuitTimer
 
-@onready var java: Java = $Java
-@onready var capes_release: LatestRelease = $CapesRelease
-@onready var forge: Forge = $Forge
+@onready var minecraft_installation: Node = $MinecraftInstallation
 
 func _ready() -> void:
 	_init_curseforge_api()
 	
-	modulate.a = 0.0
-	$CurseforgeMod.download()
-	forge.install()
-	#java.execute(JavaExecutor.new(["-version"]))
-	
 	player_name_line_edit.text = ProfileManager.get_player_name()
-	#mc_installation.install_overrides()
 	progress_bar.hide()
 	
-	mc_installation.on_run.connect(quit_timer.start)
+	minecraft_installation.install()
+	
+	#mc_installation.on_run.connect(quit_timer.start)
 
 func _init_curseforge_api():
 	var file = FileAccess.open(CURSEFORGE_KEY_PATH, FileAccess.READ)

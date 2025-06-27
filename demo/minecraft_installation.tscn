@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c77lr42fyc6sd"]
+
+[ext_resource type="Script" uid="uid://bf5b1umcx61b3" path="res://demo/minecraft_installation.gd" id="1_qtflt"]
+[ext_resource type="Script" uid="uid://yy02e2l4h346" path="res://addons/github_releases/latest_release.gd" id="2_qtflt"]
+[ext_resource type="Script" uid="uid://diq352wlld8lq" path="res://addons/java/java.gd" id="3_xtk5w"]
+[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="4_ilsbx"]
+
+[node name="MinecraftInstallation" type="Node"]
+script = ExtResource("1_qtflt")
+
+[node name="CapesRelease" type="Node" parent="."]
+script = ExtResource("2_qtflt")
+owner_name = "SMP2I-Community"
+repository = "Capes"
+to_folder = "user://capes"
+metadata/_custom_type_script = "uid://yy02e2l4h346"
+
+[node name="OverridesRelease" type="Node" parent="."]
+script = ExtResource("2_qtflt")
+owner_name = "SMP2I-Community"
+repository = "Overrides"
+metadata/_custom_type_script = "uid://yy02e2l4h346"
+
+[node name="Java" type="Node" parent="."]
+script = ExtResource("3_xtk5w")
+installation_folder = "user://runtime"
+linux_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-linux-x64.tar.gz"
+windows_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-windows-x64.zip"
+windows_executable_path = "bin/javaw.exe"
+macos_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/22.0.2+9/openlogic-openjdk-22.0.2+9-mac-x64.zip"
+metadata/_custom_type_script = "uid://diq352wlld8lq"
+
+[node name="Forge" type="Node" parent="." node_paths=PackedStringArray("java")]
+script = ExtResource("4_ilsbx")
+java = NodePath("../Java")
+installer = "res://demo/assets/forge/forge-1.20.1-47.2.32-installer.jar"
+metadata/_custom_type_script = "uid://cnt177xcrab2k"

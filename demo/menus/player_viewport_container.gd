@@ -9,6 +9,10 @@ var start_rotation: float = 0.0
 var should_rotate: bool = false
 
 @export var rotation_force: float = 0.05
+@export var rotation_speed: float = 0.002
+
+func _ready() -> void:
+	player.rotation_speed = rotation_speed
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
