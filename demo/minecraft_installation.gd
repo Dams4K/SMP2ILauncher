@@ -6,7 +6,10 @@ extends Node
 @onready var java: Java = $Java
 @onready var forge: Forge = $Forge
 
+@onready var assets: Assets = $Assets
+
 func install():
-	capes_release.install()
-	overrides_release.install()
-	forge.install()
+	#capes_release.install()
+	#overrides_release.install()
+	#forge.install()
+	assets.install()
