@@ -29,10 +29,8 @@ config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-Config="*res://demo/autoloads/Config.gd"
-GlobalFunctions="*res://demo/autoloads/GlobalFunctions.gd"
-InstallCapes="res://demo/autoloads/InstallCapes.gd"
-ProfileManager="*res://demo/autoloads/ProfileManager.tscn"
+Config="*res://demo/autoloads/config.gd"
+ProfileManager="*res://demo/autoloads/profile_manager.tscn"
 Utils="*res://addons/minecraft_launcher/utils.gd"
 
 [debug]

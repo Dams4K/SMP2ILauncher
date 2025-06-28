@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c77lr42fyc6sd"]
+
+[ext_resource type="Script" uid="uid://bf5b1umcx61b3" path="res://demo/minecraft/minecraft.gd" id="1_qtflt"]
+[ext_resource type="PackedScene" uid="uid://dtw5lk0o3nfi0" path="res://demo/minecraft/releases.tscn" id="3_wq5me"]
+[ext_resource type="Script" uid="uid://diq352wlld8lq" path="res://addons/java/java.gd" id="3_xtk5w"]
+[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="4_ilsbx"]
+[ext_resource type="Script" uid="uid://8aw8lbj4m0b4" path="res://demo/assets.gd" id="5_qtflt"]
+
+[node name="Minecraft" type="Node"]
+script = ExtResource("1_qtflt")
+
+[node name="Java" type="Node" parent="."]
+script = ExtResource("3_xtk5w")
+installation_folder = "user://runtime"
+linux_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/17.0.14+7/openlogic-openjdk-17.0.14+7-linux-x64.tar.gz"
+windows_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk-jre/17.0.14+7/openlogic-openjdk-jre-17.0.14+7-windows-x64.zip"
+windows_executable_path = "bin/javaw.exe"
+macos_download_url = "https://builds.openlogic.com/downloadJDK/openlogic-openjdk-jre/17.0.14+7/openlogic-openjdk-jre-17.0.14+7-mac-x64.zip"
+metadata/_custom_type_script = "uid://diq352wlld8lq"
+
+[node name="Releases" parent="." instance=ExtResource("3_wq5me")]
+
+[node name="Minecraft" type="Node" parent="."]
+
+[node name="Forge" type="Node" parent="Minecraft" node_paths=PackedStringArray("java")]
+script = ExtResource("4_ilsbx")
+java = NodePath("../../Java")
+installer = "res://demo/assets/forge/forge-1.20.1-47.4.0-installer.jar"
+metadata/_custom_type_script = "uid://cnt177xcrab2k"
+
+[node name="Assets" type="Node" parent="Minecraft"]
+script = ExtResource("5_qtflt")
+assets_folder = null
+metadata/_custom_type_script = "uid://cqf5kbloq7w2i"

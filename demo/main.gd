@@ -28,7 +28,7 @@ var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tre
 @onready var progress_bar: ProgressBar = %ProgressBar
 @onready var quit_timer: Timer = $QuitTimer
 
-@onready var minecraft_installation: Node = $MinecraftInstallation
+@onready var minecraft: Node = $Minecraft
 
 func _ready() -> void:
 	_init_curseforge_api()
@@ -36,7 +36,7 @@ func _ready() -> void:
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	progress_bar.hide()
 	
-	minecraft_installation.install()
+	minecraft.install()
 	
 	#mc_installation.on_run.connect(quit_timer.start)
 

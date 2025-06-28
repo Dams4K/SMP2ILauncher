@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dmajl82kqvoml" path="res://demo/assets/themes/main_theme.tres" id="1_3r4ql"]
 [ext_resource type="Script" uid="uid://bv83qgwbfu3rg" path="res://demo/main.gd" id="2_3qh5v"]
-[ext_resource type="PackedScene" uid="uid://c77lr42fyc6sd" path="res://demo/minecraft_installation.tscn" id="3_27lkm"]
+[ext_resource type="PackedScene" uid="uid://c77lr42fyc6sd" path="res://demo/minecraft/minecraft.tscn" id="3_27lkm"]
 [ext_resource type="Script" uid="uid://d3t30n2gskt00" path="res://addons/minecraft_launcher/minecraft/mc_installation.gd" id="7_sy6vv"]
 [ext_resource type="Script" uid="uid://2i2tiwcurk8j" path="res://addons/minecraft_launcher/java_downloader.gd" id="8_02f81"]
 [ext_resource type="Resource" uid="uid://bpc5u6s0v5q1x" path="res://demo/assets/java_downloaders/linux_java_17.tres" id="9_yq6dc"]
@@ -132,7 +132,7 @@ size_flags_vertical = 2
 theme = ExtResource("1_3r4ql")
 script = ExtResource("2_3qh5v")
 
-[node name="MinecraftInstallation" parent="." instance=ExtResource("3_27lkm")]
+[node name="Minecraft" parent="." instance=ExtResource("3_27lkm")]
 
 [node name="MCInstallation" type="Node" parent="." node_paths=PackedStringArray("progress_bar", "mass_downloads")]
 script = ExtResource("7_sy6vv")

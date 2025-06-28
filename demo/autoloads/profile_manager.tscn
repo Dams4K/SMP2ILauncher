@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://2jnpak886eyt"]
+
+[ext_resource type="Script" uid="uid://rtcgldmwmkqa" path="res://demo/autoloads/profile_manager.gd" id="1_pog1u"]
+[ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/easy_requests/requests.gd" id="2_ief38"]
+
+[node name="ProfileManager" type="Node"]
+script = ExtResource("1_pog1u")
+
+[node name="Requests" type="Node" parent="."]
+script = ExtResource("2_ief38")
+
+[node name="SkinDownloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SkinDownloadTimer" to="." method="_on_skin_download_timer_timeout"]
