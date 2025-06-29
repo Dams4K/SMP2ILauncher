@@ -1,2 +1,2 @@
 extends Resource
-class_name Forge
+class_name Forge2

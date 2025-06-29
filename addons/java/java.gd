@@ -1,7 +1,7 @@
 extends Progressor
 class_name Java
 
-const INSTALLED_PROGRESS_VALUE := 50
+const INSTALLED_PROGRESS_VALUE := 250
 
 #region Download Section
 @export var installation_folder: String

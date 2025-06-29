@@ -1,9 +1,9 @@
 extends Resource
 class_name AssetIndex
 
-var data: Dictionary = {}
+var data: Dictionary
 
-func _init(data: Dictionary) -> void:
+func _init(data: Dictionary = {}) -> void:
 	self.data = data
 
 func get_id():

@@ -1,29 +1,19 @@
 extends HTTPRequest
-class_name Asset
+class_name Artifact
 
-const RESOURCES_URL = "https://resources.download.minecraft.net/"
+@export var url: String
 
-@export var assets_folder: String = "user://assets"
-
-@export var endpoint: String
-@export var hash: String
-@export var size: String
+var data: Dictionary
 
 var callback: Callable
 
-func _init(data: Dictionary = {}, assets_folder: String = "user://"):
-	self.assets_folder = assets_folder
+func _init(artifact_data: Dictionary, libraries_folder := "user://libraries") -> void:
+	data = artifact_data
 	
-	if data.is_empty():
-		return
-	
-	hash = data.get("hash")
-	endpoint = hash.substr(0, 2) + "/" + hash
-	download_file = assets_folder.path_join("objects").path_join(endpoint)
-	
-	name = hash
+	download_file = libraries_folder.path_join(self.get_jar_path().get_file())
 
 func _ready() -> void:
+	name = get_jar_path().get_file()
 	request_completed.connect(_on_request_completed)
 
 func download(callback: Callable):
@@ -40,8 +30,12 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	if result != HTTPRequest.RESULT_SUCCESS:
 		push_error("Error while downloading %s" % get_url())
 	else:
-		print_debug("Asset at %s downloaded" % get_url())
+		print_debug("Library at %s downloaded" % get_url())
 	callback.call()
 
+func get_jar_path() -> String:
+	return self.data.get("path")
 func get_url() -> String:
-	return RESOURCES_URL.path_join(endpoint)
+	return self.data.get("url")
+func get_sha1() -> String:
+	return self.data.get("sha1", "")

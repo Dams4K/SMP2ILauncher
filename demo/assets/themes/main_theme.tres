@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=32 format=3 uid="uid://dmajl82kqvoml"]
 
-[ext_resource type="FontFile" uid="uid://lh8tw5kqre88" path="res://demo/assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf" id="1_pypml"]
+[ext_resource type="FontFile" uid="uid://dqgwaq7bvtwpr" path="res://demo/assets/fonts/Comfortaa/static/Comfortaa-Bold.ttf" id="1_jmboj"]
 [ext_resource type="StyleBox" uid="uid://bh8ujnokaxlik" path="res://demo/assets/materials/theme/panel_style.tres" id="2_lgucj"]
 [ext_resource type="Texture2D" uid="uid://dkeu6vegkgnem" path="res://demo/assets/textures/grabber_normal.svg" id="3_u2r0f"]
 [ext_resource type="Texture2D" uid="uid://bta3sre67iodj" path="res://demo/assets/textures/grabber_hover.svg" id="4_83v6o"]
@@ -147,7 +147,7 @@ expand_margin_bottom = 2.0
 content_margin_left = 12.0
 
 [sub_resource type="FontVariation" id="FontVariation_r8fu8"]
-base_font = ExtResource("1_pypml")
+base_font = ExtResource("1_jmboj")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esnox"]
 content_margin_left = 12.0
@@ -304,12 +304,14 @@ PanelContainerSmall/styles/panel = SubResource("StyleBoxFlat_e8ou7")
 PanelCover/base_type = &"Panel"
 PanelCover/styles/panel = SubResource("StyleBoxFlat_wxavo")
 ProgressBar/colors/font_color = Color(1, 1, 1, 1)
-ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
 ProgressBar/constants/outline_size = 2
 ProgressBar/font_sizes/font_size = 16
 ProgressBar/styles/background = SubResource("StyleBoxFlat_jmboj")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_f58nd")
 ProgressBarRight/base_type = &"ProgressBar"
+ProgressBarRight/constants/outline_size = 0
+ProgressBarRight/font_sizes/font_size = 24
+ProgressBarRight/fonts/font = SubResource("FontVariation_r8fu8")
 ProgressBarRight/styles/background = SubResource("StyleBoxFlat_6qrv1")
 ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_oouwd")
 VSlider/constants/center_grabber = 0

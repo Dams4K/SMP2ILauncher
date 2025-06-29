@@ -13,6 +13,8 @@ var assets_start_time: float = 0.0
 var assets_end_time: float = 0.0
 var assets_must_check := true
 
+@export var libraries: Libraries
+
 @export var version := "1.20.1"
 
 var version_data: Dictionary = {}
@@ -30,10 +32,11 @@ func install():
 	version_data = await get_version_data()
 	
 	await install_assets()
-	await install_libraries()
+	print("assets installed")
+	install_libraries()
 
 func get_progress():
-	return assets.get_progress()
+	return assets.get_progress() + libraries.get_progress()
 
 func _process(delta: float) -> void:
 	if assets_must_check:
@@ -81,16 +84,20 @@ func get_version_data() -> Dictionary:
 	return {}
 
 func install_assets():
-	if assets == null:
-		return
+	assert(assets != null, "No assets node")
 	
 	var index = AssetIndex.new(version_data["assetIndex"])
 	
 	assets_start_time = Time.get_unix_time_from_system()
 	assets.install(index)
+	await assets.assets_installed
 
 func install_libraries():
-	pass
+	assert(libraries != null, "No libraries node")
+	
+	#var libraries_list = LibrariesList.new(version_data["libraries"])
+	
+	libraries.install(version_data["libraries"])
 
 
 func get_main_class():

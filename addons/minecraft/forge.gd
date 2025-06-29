@@ -1,6 +1,8 @@
 extends Progressor
 class_name Forge
 
+const INSTALLED_PROGRESS_VALUE := 100
+
 @export var java: Java
 @export_file var installer: String
 
@@ -30,7 +32,7 @@ func _execute_installer():
 func _on_executed(exit_code: int, output: Array):
 	assert(exit_code == 0, "Failed to install forge (exit code: %s)" % exit_code)
 	print_debug("Forge installed at %s" % global(installation_folder))
-	_progress = 20
+	_progress = INSTALLED_PROGRESS_VALUE
 
 func global(path: String):
 	return ProjectSettings.globalize_path(path)

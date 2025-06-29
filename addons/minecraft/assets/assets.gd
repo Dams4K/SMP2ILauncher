@@ -1,12 +1,15 @@
 extends Progressor
 class_name Assets
 
+signal assets_installed
+
 const RESOURCES_URL = "https://resources.download.minecraft.net/"
 
 @export var assets_folder := "user://assets"
 @export var max_threads := 4
 
 var threaders: Array[Threader] = []
+var threaders_finished_list: Array[bool] = []
 
 var requester: Requests
 
@@ -28,8 +31,16 @@ func _init_threaders():
 	for i in range(nb_of_cores_used):
 		var threader := Threader.new()
 		threader.name = "Threader %s" % i
+		threader.finished.connect(_on_threader_finished.bind(i))
+		
 		threaders.append(threader)
+		threaders_finished_list.append(false)
 		add_child(threader)
+
+func _on_threader_finished(threader_idx: int):
+	threaders_finished_list[threader_idx] = true
+	if not threaders_finished_list.has(false):
+		assets_installed.emit()
 
 func install(asset_index: AssetIndex):
 	var objects = await get_assets_list(asset_index)
@@ -60,6 +71,7 @@ func _asset_callback(threader: Threader, asset: Asset, assets: Array):
 	var next_asset: Asset = assets.pop_front()
 	if next_asset == null:
 		print_debug("All assets of %s have been downloaded" % threader.name)
+		threader.finished.emit()
 		return
 	
 	next_asset.download.call_deferred(_asset_callback.bind(threader, next_asset, assets))
