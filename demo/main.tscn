@@ -1,17 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://bnvlws7lnrdw"]
+[gd_scene load_steps=21 format=3 uid="uid://bnvlws7lnrdw"]
 
 [ext_resource type="Theme" uid="uid://dmajl82kqvoml" path="res://demo/assets/themes/main_theme.tres" id="1_3r4ql"]
 [ext_resource type="Script" uid="uid://bv83qgwbfu3rg" path="res://demo/main.gd" id="2_3qh5v"]
 [ext_resource type="PackedScene" uid="uid://c77lr42fyc6sd" path="res://demo/minecraft/minecraft.tscn" id="3_27lkm"]
-[ext_resource type="Script" uid="uid://d3t30n2gskt00" path="res://addons/minecraft_launcher/minecraft/mc_installation.gd" id="7_sy6vv"]
-[ext_resource type="Script" uid="uid://2i2tiwcurk8j" path="res://addons/minecraft_launcher/java_downloader.gd" id="8_02f81"]
-[ext_resource type="Resource" uid="uid://bpc5u6s0v5q1x" path="res://demo/assets/java_downloaders/linux_java_17.tres" id="9_yq6dc"]
-[ext_resource type="Resource" uid="uid://dgyxcs8ol60sx" path="res://demo/assets/java_downloaders/linux_java_8.tres" id="10_rhuok"]
-[ext_resource type="Script" uid="uid://bjk5g4gwdhnmi" path="res://addons/minecraft_launcher/java_manager.gd" id="11_d6f2q"]
-[ext_resource type="Resource" uid="uid://w8oe1ck4lhf0" path="res://demo/assets/java_downloaders/windows_java_17.tres" id="12_6vemr"]
-[ext_resource type="Resource" uid="uid://1kr331jmpwv6" path="res://demo/assets/profiles/forge_1201.tres" id="13_xec5l"]
-[ext_resource type="Script" uid="uid://dlkjcqdi7ge4o" path="res://addons/minecraft_launcher/minecraft/mc_mod.gd" id="14_tk5yn"]
-[ext_resource type="Script" uid="uid://rjxvf6e767oo" path="res://addons/minecraft_launcher/minecraft/curseforge_mod.gd" id="15_es1df"]
 [ext_resource type="Script" uid="uid://b8su7m0ebsh0a" path="res://demo/mass_downloads.gd" id="16_nwv5g"]
 [ext_resource type="PackedScene" uid="uid://bat3n2cmf3i2b" path="res://demo/menus/capes_selector_window.tscn" id="17_cidaf"]
 [ext_resource type="PackedScene" uid="uid://b2mp5ed0vs4pf" path="res://demo/menus/player_viewport_container.tscn" id="18_x1xes"]
@@ -21,24 +12,6 @@
 [ext_resource type="Script" uid="uid://2woelyueautw" path="res://demo/player_name_line_edit.gd" id="22_kkmuq"]
 [ext_resource type="Texture2D" uid="uid://bccwy8opb2gkd" path="res://demo/assets/textures/NodeWarning.svg" id="23_mrq1a"]
 [ext_resource type="Script" uid="uid://bnmyahdqpjit4" path="res://addons/easy_requests/requests.gd" id="24_cw4ra"]
-
-[sub_resource type="Resource" id="Resource_2ce40"]
-script = ExtResource("8_02f81")
-java_major_version = "8"
-url = "https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_windows-x64_bin.zip"
-exe_path = "jdk-17.0.2/bin/javaw.exe"
-extension = "zip"
-sha1 = ""
-
-[sub_resource type="Resource" id="Resource_8je2n"]
-script = ExtResource("11_d6f2q")
-linux_javas = Array[ExtResource("8_02f81")]([ExtResource("9_yq6dc"), ExtResource("10_rhuok")])
-windows_javas = Array[ExtResource("8_02f81")]([ExtResource("12_6vemr"), SubResource("Resource_2ce40")])
-
-[sub_resource type="Resource" id="Resource_wyww5"]
-script = ExtResource("15_es1df")
-modid = 286924
-fileid = 4973871
 
 [sub_resource type="LabelSettings" id="LabelSettings_cpkci"]
 font = ExtResource("20_oxxlq")
@@ -133,18 +106,6 @@ theme = ExtResource("1_3r4ql")
 script = ExtResource("2_3qh5v")
 
 [node name="Minecraft" parent="." instance=ExtResource("3_27lkm")]
-
-[node name="MCInstallation" type="Node" parent="." node_paths=PackedStringArray("progress_bar", "mass_downloads")]
-script = ExtResource("7_sy6vv")
-progress_bar = NodePath("../CenterContainer/VBoxContainer/PanelContainer/HBoxContainer/PlayContainer/PlayButton/ProgressBar")
-mass_downloads = NodePath("../MassDownloads")
-java_manager = SubResource("Resource_8je2n")
-overrides_folder = "res://demo/overrides"
-tweaker = ExtResource("13_xec5l")
-mods = Array[ExtResource("14_tk5yn")]([SubResource("Resource_wyww5")])
-fabric_loader_version = "0.15.10"
-mc_version_file = ""
-mc_version_id = "1.20.1"
 
 [node name="MassDownloads" type="Node" parent="."]
 script = ExtResource("16_nwv5g")

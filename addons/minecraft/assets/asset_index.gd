@@ -1,5 +1,5 @@
 extends Resource
-class_name AssetsIndex
+class_name AssetIndex
 
 var data: Dictionary = {}
 

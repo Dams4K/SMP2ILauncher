@@ -95,6 +95,8 @@ func do(
 		method := HTTPClient.METHOD_GET,
 		download_file := ""
 ) -> Response:
+	DirAccess.make_dir_recursive_absolute(download_file.get_base_dir())
+	
 	var http_request := HTTPRequest.new()
 	add_child(http_request)
 	http_request.use_threads = true

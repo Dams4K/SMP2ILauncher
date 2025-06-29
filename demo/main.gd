@@ -10,9 +10,6 @@ const UNKOWN_SKIN = preload("res://demo/assets/textures/skins/unkown.png")
 var player_mat: StandardMaterial3D = preload("res://demo/assets/materials/player_godot.tres")
 var cape_mat: StandardMaterial3D = preload("res://demo/assets/materials/cape.tres")
 
-
-@onready var mc_installation: MCInstallation = $MCInstallation
-
 @onready var skin_file_dialog: FileDialog = $SkinFileDialog
 @onready var cape_selector_window: Window = $CapesSelectorWindow
 
@@ -35,6 +32,7 @@ func _ready() -> void:
 	
 	player_name_line_edit.text = ProfileManager.get_player_name()
 	progress_bar.hide()
+	progress_bar.show()
 	
 	minecraft.install()
 	
@@ -54,7 +52,11 @@ func _on_play_button_pressed() -> void:
 	progress_bar.show()
 	play_button.disabled = true
 	
-	mc_installation.run(ProfileManager.get_player_name())
+	#mc_installation.run(ProfileManager.get_player_name())
+
+
+func _process(delta: float) -> void:
+	progress_bar.value = minecraft.get_progress()
 
 
 func _on_player_name_line_edit_text_changed(new_text: String) -> void:

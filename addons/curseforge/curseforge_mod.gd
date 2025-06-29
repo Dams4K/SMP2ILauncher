@@ -32,7 +32,6 @@ func _get_download_url() -> DownloadInfo:
 	if response.json() == null:
 		push_error("Failed to download mod infos. Code: %s. Result: %s" % [response.code, response.result])
 		return
-	#assert(response.json(), "Response is null: code %s" % response.code)
 	
 	var data = response.json().get("data", {})
 	

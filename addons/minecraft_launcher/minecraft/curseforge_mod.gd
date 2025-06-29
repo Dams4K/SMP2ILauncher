@@ -9,8 +9,8 @@ const GET_MOD := "/v1/mods/%s/files/%s"
 
 func get_headers():
 	return [
-		'Accept: application/json',
-		'x-api-key: %s' % GlobalFunctions.curseforge_api_key
+		#'Accept: application/json',
+		#'x-api-key: %s' % GlobalFunctions.curseforge_api_key
 	]
 
 func get_file(downloader: Requests, mod_folder: String):

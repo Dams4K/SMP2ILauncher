@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://ich8qfi1egyb"]
+
+[ext_resource type="Script" uid="uid://b8ctn2beehrd7" path="res://demo/minecraft/minecraft_installer.gd" id="1_jxfkq"]
+[ext_resource type="Script" uid="uid://cnt177xcrab2k" path="res://addons/minecraft/forge.gd" id="1_sqfqk"]
+[ext_resource type="Script" uid="uid://8aw8lbj4m0b4" path="res://demo/assets.gd" id="2_jxfkq"]
+[ext_resource type="Script" uid="uid://cdb7rtms2qed0" path="res://addons/minecraft/tweakers/minecraft_tweaker.gd" id="4_wgoxv"]
+
+[node name="MinecraftInstaller" type="Node"]
+script = ExtResource("1_jxfkq")
+
+[node name="Forge" type="Node" parent="."]
+script = ExtResource("1_sqfqk")
+installer = "res://demo/assets/forge/forge-1.20.1-47.4.0-installer.jar"
+metadata/_custom_type_script = "uid://cnt177xcrab2k"
+
+[node name="MinecraftTweaker" type="Node" parent="." node_paths=PackedStringArray("assets")]
+script = ExtResource("4_wgoxv")
+assets = NodePath("Assets")
+metadata/_custom_type_script = "uid://cdb7rtms2qed0"
+
+[node name="Assets" type="Node" parent="MinecraftTweaker"]
+script = ExtResource("2_jxfkq")
+max_threads = 12
+metadata/_custom_type_script = "uid://cqf5kbloq7w2i"
