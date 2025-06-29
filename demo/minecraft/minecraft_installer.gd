@@ -9,4 +9,4 @@ func install() -> void:
 	minecraft_tweaker.install()
 
 func get_progress():
-	return minecraft_tweaker.get_progress()
+	return minecraft_tweaker.get_progress() + forge.get_progress()

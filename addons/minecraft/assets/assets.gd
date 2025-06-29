@@ -22,7 +22,8 @@ func _init_requester():
 
 func _init_threaders():
 	var nb_of_cores := OS.get_processor_count()
-	var nb_of_cores_used := clamp(nb_of_cores / 2, 1, max_threads)
+	# -1 Core to not use 100% of the computor
+	var nb_of_cores_used := clamp((nb_of_cores-1) / 2, 1, max_threads)
 	
 	for i in range(nb_of_cores_used):
 		var threader := Threader.new()
@@ -58,7 +59,7 @@ func _asset_callback(threader: Threader, asset: Asset, assets: Array):
 		
 	var next_asset: Asset = assets.pop_front()
 	if next_asset == null:
-		print_debug("All assets are now downloaded for %s" % threader.name)
+		print_debug("All assets of %s have been downloaded" % threader.name)
 		return
 	
 	next_asset.download.call_deferred(_asset_callback.bind(threader, next_asset, assets))

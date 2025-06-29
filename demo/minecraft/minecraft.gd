@@ -1,7 +1,7 @@
 extends Progressor
 
 @onready var java: Java = $Java
-@onready var releases: Node = $Releases
+@onready var releases: Progressor = $Releases
 
 @onready var minecraft_installer: Progressor = $MinecraftInstaller
 
@@ -18,4 +18,4 @@ func run(player_name: String):
 	java.execute(executor)
 
 func get_progress() -> int:
-	return minecraft_installer.get_progress()
+	return minecraft_installer.get_progress() + java.get_progress() + releases.get_progress()

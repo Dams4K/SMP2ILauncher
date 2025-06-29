@@ -1,4 +1,4 @@
-extends Node
+extends Progressor
 class_name LatestRelease
 
 signal installed(udpated: bool)
@@ -9,6 +9,8 @@ signal installed(udpated: bool)
 @export var force_update := false
 @export var delete_archive := true
 @export var delete_older := true
+
+@export var PROGRESS_INSTALLED_VALUE := 10
 
 var requests: Requests
 var http_request: HTTPRequest
@@ -59,6 +61,7 @@ func download_zipball():
 	
 	var tag_file := get_tag_file(to_folder, FileAccess.READ)
 	if not must_update(tag_file):
+		_progress = PROGRESS_INSTALLED_VALUE
 		installed.emit(false)
 		return
 	if delete_older:
@@ -101,6 +104,7 @@ func _on_extracted(files: Array[String]):
 		tag_file.store_line(file)
 	
 	print("Latest release of %s is now installed at %s" % [repository, to_folder])
+	_progress = PROGRESS_INSTALLED_VALUE
 	if delete_archive:
 		DirAccess.remove_absolute(zip_file)
 	

@@ -1,5 +1,7 @@
-extends Node
+extends Progressor
 class_name Java
+
+const INSTALLED_PROGRESS_VALUE := 50
 
 #region Download Section
 @export var installation_folder: String
@@ -87,6 +89,7 @@ func _on_extracted(files: Array[String]):
 	is_installing = false
 	
 	print_debug("Java installed")
+	_progress = INSTALLED_PROGRESS_VALUE
 	if must_execute != null:
 		# We don't want to enter a loop where is_installed return false and java is downloaded again
 		_execute(must_execute, must_callback)
@@ -117,6 +120,7 @@ func execute(executor: JavaExecutor, callback: Callable = Callable()):
 		must_callback = callback
 		install()
 	else:
+		_progress = INSTALLED_PROGRESS_VALUE
 		_execute(executor, callback)
 
 func _create_process(executor: JavaExecutor, callback: Callable = Callable()) -> int:

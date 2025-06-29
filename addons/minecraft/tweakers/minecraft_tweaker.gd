@@ -49,7 +49,7 @@ func check_assets_progress():
 		return
 	
 	assets_must_check = false
-	print("Total time to download assets: %ss" % [total_time])
+	print("Total time to download assets: %.2fs" % [total_time])
 
 func get_version_data() -> Dictionary:
 	var version_file = versions_folder.path_join("%s.json" % version)

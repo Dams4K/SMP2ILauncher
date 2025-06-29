@@ -6,7 +6,7 @@ func get_minecraft_folder() -> String:
 		"Windows":
 			path = ProjectSettings.globalize_path("user://").get_base_dir().path_join(".minecraft")
 		"Linux":
-			path = OS.get_environment("HOME").path_join(".minecraf2t")
+			path = OS.get_environment("HOME").path_join(".minecraft")
 	
 	return path
 
