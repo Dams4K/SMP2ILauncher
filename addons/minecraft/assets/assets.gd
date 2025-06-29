@@ -58,17 +58,22 @@ func _asset_callback(threader: Threader, asset: Asset, assets: Array):
 		
 	var next_asset: Asset = assets.pop_front()
 	if next_asset == null:
+		print_debug("All assets are now downloaded for %s" % threader.name)
 		return
 	
 	next_asset.download.call_deferred(_asset_callback.bind(threader, next_asset, assets))
-	
 
-
-func get_progress() -> int:
+func get_assets_pending_count() -> int:
 	var assets_pending := 0
 	for threader: Threader in threaders:
 		assets_pending += threader.get_progress()
-	return assets_number - assets_pending
+	return assets_pending
+
+func get_progress() -> int:
+	return assets_number - get_assets_pending_count()
+
+func has_finished() -> bool:
+	return get_assets_pending_count() == 0
 
 func get_assets_list(asset_index: AssetIndex) -> Dictionary:
 	var asset_index_path = assets_folder.path_join("indexes/%s.json" % asset_index.get_id())
